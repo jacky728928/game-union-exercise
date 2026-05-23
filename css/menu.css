@@ -1,0 +1,184 @@
+/**
+ * 开始菜单样式
+ * 联合演习 - 回合制自走棋
+ *
+ * 包含：开始菜单相关样式
+ */
+
+#start-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.menu-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1e3a5f 0%, #0f1f33 50%, #2d3748 100%);
+    animation: backgroundFade 10s ease-in-out infinite;
+}
+
+@keyframes backgroundFade {
+    0%, 100% {
+        filter: hue-rotate(0deg);
+    }
+    50% {
+        filter: hue-rotate(20deg);
+    }
+}
+
+.menu-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    animation: menuFadeIn 0.8s ease-out;
+}
+
+@keyframes menuFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.game-logo {
+    text-align: center;
+    animation: logoPulse 2s ease-in-out infinite;
+}
+
+@keyframes logoPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+.logo-title {
+    font-size: 4rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, #48bb78 0%, #f6e05e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+    text-shadow: 0 0 30px rgba(72, 187, 120, 0.3);
+}
+
+.logo-subtitle {
+    font-size: 1.5rem;
+    color: #a0aec0;
+    letter-spacing: 3px;
+}
+
+.menu-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 280px;
+}
+
+.menu-btn {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 25px;
+    background: rgba(45, 55, 72, 0.8);
+    border: 2px solid rgba(72, 187, 120, 0.3);
+    border-radius: 10px;
+    color: #e2e8f0;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.menu-btn:hover {
+    background: rgba(72, 187, 120, 0.2);
+    border-color: #48bb78;
+    transform: translateX(10px);
+    box-shadow: 0 5px 20px rgba(72, 187, 120, 0.3);
+}
+
+.menu-btn.active {
+    background: rgba(72, 187, 120, 0.3);
+    border-color: #48bb78;
+    box-shadow: 0 0 20px rgba(72, 187, 120, 0.5);
+}
+
+.btn-icon {
+    font-size: 1.5rem;
+    width: 30px;
+    text-align: center;
+}
+
+.btn-text {
+    font-weight: 500;
+}
+
+.menu-footer {
+    text-align: center;
+    color: #718096;
+    font-size: 0.9rem;
+    margin-top: 20px;
+}
+
+.menu-footer p {
+    margin: 5px 0;
+}
+
+.qq-group-text {
+    color: #4299e1;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.qq-group-text:hover {
+    color: #63b3ed;
+}
+
+.version-text {
+    margin-bottom: 5px;
+}
+
+/* 移动端菜单优化 */
+@media screen and (max-width: 768px) {
+    .menu-btn {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .menu-btn:active {
+        transform: scale(0.98);
+        background: rgba(72, 187, 120, 0.15);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .menu-content {
+        padding: 20px;
+    }
+    
+    .game-logo {
+        padding-bottom: 20px;
+    }
+}

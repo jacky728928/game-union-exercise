@@ -1,0 +1,234 @@
+
+# 零服务器·最小体积
+
+## 1. 总览与设计原则（ai）
+
+- **完全无外部服务器**：联机仅依赖玩家网络自身能力（局域网广播/手动直连、UPnP/NAT-PMP自动映射、手动端口转发），开发者不提供任何公网 STUN/TURN/穿透中继服务。
+- **单文件分发**：Python + PyWebView + PyInstaller 打包为单个可执行文件，双击即玩。
+- **跨平台兼容**：支持 Windows 7 SP1+（64位）、macOS 10.13+、主流 Linux 发行版。
+- **最小体积优化**：Windows 优先使用系统内置 Edge WebView2（体积增量≈0），Win7 回退 CEF；macOS/Linux 使用系统原生浏览器内核；前端资源极致压缩；UPX 压缩可执行文件。
+- **双联机模式，三层兜底**：局域网自动发现（模式A） + 互联网穿透（模式B：UPnP半自动；模式C：手动映射兜底）。游戏流量全部基于 TCP 直连，房主权威逻辑。
+- **低门槛与安全基础**：增加房间密码、明确的失败引导、内嵌图文帮助，降低非技术用户操作难度。
+
+## 2. 技术选型与兼容
+
+| 平台                | 最低版本                | 浏览器后端                                      | 打包体积        | 备注                                                                 |
+| ------------------- | ----------------------- | ----------------------------------------------- | --------------- | -------------------------------------------------------------------- |
+| Windows 10+         | 任意版本                | 系统自带 Edge WebView2（pywebview edgechromium）| 35~45 MB        | WebView2 随系统或自动安装，几乎零额外体积                            |
+| Windows 7 SP1 (64位)| KB2533623 更新          | CEF (Chromium Embedded Framework)               | 85~100 MB       | 仅当系统不支持 WebView2 时回退，Python 3.8.x 确保兼容性              |
+| macOS 10.13+        | High Sierra             | WKWebView（pywebview 默认后端）                 | 30~40 MB        | 零额外内核体积，需配置沙盒网络权限                                   |
+| Linux (Ubuntu 18.04+)| 18.04                  | WebKit2GTK（pywebview 默认后端）                | 35~45 MB        | 极少数系统需安装 libwebkit2gtk-4.0-dev，可选 AppImage 便携版 (~80MB) |
+
+**核心依赖**：
+- Python 3.8（Windows 7 兼容）/ 3.10+（macOS, Linux）
+- pywebview（Windows 自动选择 WebView2 或 CEF；其他系统默认）
+- miniupnpc（跨平台 UPnP 客户端）
+- pyinstaller（打包）
+- （可选）UPX 压缩工具
+
+## 3. 项目源码结构
+
+```
+
+card_game/
+├─ main.py
+├─ frontend/
+│  ├─ index.html
+│  ├─ css/
+│  └─ js/
+│     ├─ game.js
+│     └─ network_bridge.js
+├─ network/
+│  ├─ bridge_api.py
+│  ├─ lan.py
+│  ├─ upnp_helper.py
+│  ├─ server.py
+│  └─ client.py
+├─ requirements.txt
+└─ build_scripts/
+├─ win.spec
+├─ mac.spec
+└─ linux.spec
+
+```
+
+## 4. 前后端通信设计
+
+### Python 端 (bridge_api.py) 增强 API
+
+```python
+class GameAPI:
+    # 原有接口
+    def start_lan_host(self, password='', port=0):
+        """启动局域网广播 + TCP服务器，返回房间信息（含IP:端口）"""
+
+    def start_wan_host(self, password=''):
+        """尝试UPnP映射，返回公网地址或None；同时启动TCP服务器"""
+
+    def join_lan(self, ip, port, password=''):
+        """连接局域网TCP服务器"""
+
+    def join_wan(self, ip, port, password=''):
+        """连接指定TCP地址"""
+
+    def send_game_data(self, data: str):
+        """发送游戏指令"""
+
+    def on_game_data(self, callback):
+        """注册接收游戏数据的回调（Python推送至JS）"""
+
+    # 新增辅助与安全
+    def get_local_ip(self):
+        """获取本机局域网IP（自动选择最优接口）"""
+
+    def check_upnp_support(self):
+        """返回UPnP可用状态与公网IP，用于提前诊断"""
+
+    def get_public_ip(self):
+        """通过公开API获取公网IP（如ipify）"""
+
+    def stop_server(self):
+        """关闭服务器、删除UPnP映射，清理资源"""
+
+    def set_game_event_callback(self, callback):
+        """注册通用事件回调：连接状态变化、错误信息等"""
+```
+
+前端 JS (network_bridge.js) 优化
+
+· 所有异步调用使用 await
+· 数据接收通过 Python 侧 evaluate_js 调用全局函数实现，前端统一处理消息队列
+· 加入密码输入界面（创建/加入房间时可选）
+· 界面状态：连接中、已连接、连接失败原因提示
+
+```javascript
+// 注册数据接收
+window.pywebview.api.on_game_data((data) => {
+    window.dispatchEvent(new CustomEvent('game-data', { detail: JSON.parse(data) }));
+});
+window.addEventListener('game-data', (e) => handleIncomingCommand(e.detail));
+
+// 房间创建与 UPnP 诊断
+async function createInternetRoom(password) {
+    const support = await api.check_upnp_support();
+    if (support.available) {
+        const addr = await api.start_wan_host(password);
+        if (addr) {
+            showAddress(addr, '公网地址');
+        } else {
+            showManualGuide(support.public_ip);
+        }
+    } else {
+        showManualGuide(await api.get_public_ip());
+    }
+}
+```
+
+5. 联机模式详细流程（优化版）
+
+模式 A：局域网全自动 + 手动备选
+
+1. 房主点击“创建局域网房间”，可设置可选密码（默认留空）。
+2. Python 后台：
+   · 随机选择空闲端口 P，启动 TCP 服务器监听 0.0.0.0:P
+   · 启动 UDP 广播线程，每 2 秒向局域网广播地址（如 255.255.255.255 或 IPv6 组播）发送含房间名、本地 IP、端口 P、密码哈希的数据包
+3. 客机点击“刷新房间列表”：
+   · Python 监听 UDP 端口接收广播，解析房间列表（含房间名、IP、端口）
+   · 前端展示列表，若列表为空且持续数秒，自动显示“未发现房间，您也可以手动输入主机地址（IP:端口）加入”
+4. 客机选择房间（或手动输入），输入密码（若需要），Python 发起 TCP 连接。
+5. 连接建立后首先进行简单握手验证：客机发送密码哈希，房主验证通过则加入，否则断开。
+6. 进入游戏，房主权威处理所有指令并广播状态。
+
+增强：若广播失败（AP隔离），房主界面主动显示本机 IP 和端口，提示客机手动输入。
+
+模式 B：互联网 UPnP 半自动 + 智能降级
+
+1. 房主选择“创建互联网房间”并设置密码。
+2. Python 调用 check_upnp_support()：
+   · 发现 UPnP 网关，获取公网 IP
+   · 若发现网关但无公网 IP（CGNAT），提示：“您的网络没有公网 IPv4 地址，无法自动穿透。请尝试模式C或使用内网穿透工具。”
+   · 若未发现 UPnP 网关，提示：“路由器可能不支持或未开启 UPnP，请手动开启或使用模式C。”
+3. 若 UPnP 可用且有公网 IP，则尝试添加 TCP 端口映射（外部端口建议随机或用户自定义，默认 19999）。映射成功后返回 公网IP:映射端口。
+4. 启动 TCP 服务器监听本地映射端口，密码机制同模式A。
+5. 前端显示大号复制按钮：“您的房间地址：203.0.113.5:19999”，并附带一键复制功能。
+6. 房主通过外部 IM 分享地址与密码（密码可单独告知）。
+7. 客机在“加入互联网房间”界面粘贴地址和密码，Python 解析并连接，握手验证密码。
+8. 游戏结束后，自动删除 UPnP 映射、关闭服务器。
+
+模式 C：手动端口转发（优化引导）
+
+当模式 B 失败或用户主动选择时，提供嵌入式智能引导：
+
+· 自动获取本机局域网 IP 和所选端口
+· 生成分步骤图文教程（可打包在资源中或动态展示）：
+  1. 登录路由器管理页（常见地址提示）
+  2. 找到端口转发/虚拟服务器设置
+  3. 新建规则：外部端口 XXXX，内部 IP 192.168.x.x，内部端口 XXXX，TCP 协议
+  4. 查询公网 IP（自动调用接口获取并展示）
+  5. 将“公网IP:端口”和密码发送给好友
+· 提供“重新检测 UPnP”按钮，以便用户在手动开启路由器 UPnP 后重试模式B
+
+6. 体积优化策略
+
+· Windows 首选 WebView2：打包时检测系统，若目标为 Win10+ 则默认使用 edgechromium，体积仅打包前端+Python，约 35 MB。通过 --add-data 包含 WebView2 引导安装程序（可选），确保未安装时自动下载。
+· Win7 回退 CEF：打包脚本生成两个版本，建议发布两个安装包：CardGame_Win7.exe（85 MB）和 CardGame_Win10+.exe（35 MB），用标注说明。
+· 前端极致压缩：HTML/CSS/JS 全部 minify，使用 brotli 压缩并作为 data 文件打包，运行时解压到临时目录加载。
+· UPX 压缩：对生成的 .exe/.bin 使用 UPX，可额外减少 20-30% 体积。
+· 排除无用模块：PyInstaller 的 excludes 列表加入 tkinter, matplotlib, numpy, pandas 等，只保留必要组件。
+· macOS/Linux 保持零内核增量，最终体积 ≤ 40 MB。
+
+7. 打包与分发流程
+
+Windows 打包脚本 (win.spec) 关键调整
+
+```python
+# 可配置构建不同版本：WebView2 或 CEF
+if BUILD_WEBVIEW2:
+    hiddenimports = []   # 不需要 cefpython3
+    backend = 'edgechromium'
+else:
+    hiddenimports = ['cefpython3']
+    backend = 'cef'
+...
+exe = EXE(...
+    upx=True,
+    console=False,
+    icon='icon.ico',
+)
+```
+
+· macOS 打包需额外设置 entitlements.plist 包含 com.apple.security.network.client 和 com.apple.security.network.server，并在 .spec 中指定 codesign_identity（或临时 ad-hoc 签名）。
+· Linux 提供标准可执行文件，另提供 AppImage 脚本自动化收集 WebKit2GTK 依赖。
+
+8. 游戏逻辑适配
+
+· 房主权威：所有随机数、结算由房主端运行，客机仅发送操作意图。
+· 协议增强：数据包增加 room_id 和 seq 字段防止串扰和重放。
+· 连接断开处理：TCP 异常时，前端弹出“连接已中断”，并自动调用 stop_server 清理资源；房主可重新开放房间等待重连。
+· 密码安全：传输中使用 SHA-256 哈希加随机盐（简单防嗅探），房主存储原始密码比较。虽然非加密，但可避免明文泄露。
+
+9. 兼容性与测试清单
+
+系统兼容性
+
+· Windows 7 SP1 + KB2533623：测试 CEF 窗口创建、UPnP 映射、网络权限弹窗
+· Windows 10/11：测试 WebView2 运行时缺失时的自动安装或优雅提示；确保权限弹窗正常
+· macOS 10.13+：验证沙盒权限、WKWebView 加载、UPnP 功能
+· Linux (Ubuntu 18.04/20.04)：确认 WebKit2GTK 版本，无头环境提示
+
+网络环境测试
+
+· 同一 WiFi（未隔离）：广播发现、房间列表、直连
+· 启用 AP 隔离的公共 WiFi：验证手动输入 IP 加入的功能
+· 家用路由器（UPnP 开启，公网 IPv4）：测试模式 B 一键穿透
+· 家用路由器（UPnP 关闭）：测试自动诊断提示和模式 C 引导
+· 运营商大内网（无公网 IP）：测试模式 B 失败后的明确提示和模式 C
+· 多网卡（有线+无线+虚拟网卡）：测试本地 IP 选择逻辑（优先选择默认路由接口）
+
+异常测试
+
+· 房主突然关闭程序，客机检测断线
+· UPnP 映射冲突（端口已被占用）时自动更换端口
+· 防火墙首次弹窗交互
+
+```

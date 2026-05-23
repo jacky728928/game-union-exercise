@@ -1,0 +1,375 @@
+ 🎮 诊断工具已加载!
+ 可用命令:
+   runBattleDiagnostics()  - 运行完整系统诊断
+   testMerge()            - 测试棋子合成功能
+   testBattleAnimations() - 测试战斗动画效果
+   testSpeedControl()     - 测试战斗速度按钮
+   testSettings()         - 测试设置界面功能
+ MenuSystem: 开始初始化...
+ MenuSystem: 检查 DOM 元素...
+ MenuSystem: 绑定按钮事件...
+ MenuSystem: 找到 5 个菜单按钮
+ MenuSystem: 绑定按钮 0: action=start
+ MenuSystem: 绑定按钮 1: action=log
+ MenuSystem: 绑定按钮 2: action=tutorial
+ MenuSystem: 绑定按钮 3: action=settings
+ MenuSystem: 绑定按钮 4: action=help
+ MenuSystem: 绑定设置界面事件...
+ MenuSystem: 设置界面事件绑定完成
+ MenuSystem: 按钮事件绑定完成
+ MenuSystem: 绑定开发者模式事件...
+ MenuSystem: 开发者模式事件绑定完成
+ MenuSystem: 初始化公告系统...
+ MenuSystem: 公告事件绑定完成
+ MenuSystem: 公告系统初始化完成
+ MenuSystem: 初始化完成
+ 所有系统初始化完成
+ 战斗场景系统已初始化
+ MenuSystem: 按钮点击事件触发 - settings
+ MenuSystem: 处理动作 - settings
+ MenuSystem: 显示设置...
+ MenuSystem: 关闭设置界面
+ MenuSystem: 按钮点击事件触发 - start
+ MenuSystem: 处理动作 - start
+ MenuSystem: 开始游戏...
+ MenuSystem: 隐藏菜单, 显示游戏容器
+ MenuSystem: 菜单已隐藏, 游戏容器已显示
+ MenuSystem: 正在创建 Game 实例...
+ [Game] 开始实例化 Game 类...
+ [Game] 构造函数执行中...
+ [Game] 初始化 chessManager...
+ [Game] 获取随机英雄...
+ [Game] 调用 init() 方法...
+ [Game] ===== init() 开始 =====
+ [Game] 当前状态: {"gold":10,"round":1,"campLevel":1,"heroHp":30}
+ [Game] 获取商店棋子...
+ [Game] 商店棋子数量: 5
+ [Game] 渲染商店...
+ [Game] 渲染商店格子...
+ [Game] 商店渲染完成，共 5 个棋子
+ [Game] 渲染替补席...
+ [Game] 渲染战场...
+ [Game] 更新UI...
+ [Game] 绑定事件...
+ [Game] bindEvents() 开始绑定事件...
+ [Game] 绑定开始战斗按钮
+ [Game] 绑定升级营帐按钮
+ [Game] 绑定刷新商店按钮
+ [Game] 绑定自动合成按钮
+ [Game] 绑定关闭战斗按钮
+ [Game] 绑定重新开始按钮
+ [Game] 绑定速度按钮: 0.5x
+ [Game] 绑定速度按钮: 1x
+ [Game] 绑定速度按钮: 1.5x
+ [Game] 绑定速度按钮: 2x
+ [Game] 设置拖放功能...
+ [Game] setupDragAndDrop() 被调用
+ [Game] 设置售卖区域...
+ [Game] 事件绑定完成
+ [Game] ===== init() 完成 =====
+ [Game] Game 实例创建完成
+ MenuSystem: Game 实例已创建成功
+ MenuSystem: 显示更新公告
+ MenuSystem: 关闭公告
+ [Dev] 增加金币: +1000, 当前: 1010
+ [Game] refreshShop() 被调用
+ [Game] 刷新后商店棋子数量: 5
+ [Game] 渲染商店格子...
+ [Game] 商店渲染完成，共 5 个棋子
+ [Game] setupDragAndDrop() 被调用
+ [Dev] 设置营帐等级: 6
+ [Dev] 增加回合: +5, 当前: 6
+ [Dev] 增加回合: +1, 当前: 7
+ [Dev] 增加回合: +1, 当前: 8
+ [Buy] buyChess() 被调用, index: 2
+ [Buy] 当前金币: 1010, 战场棋子数: 0, 替补席棋子数: 0
+ [Buy] 购买棋子: 牟新雨 (星级: 4)
+ [ChessUnit] 创建棋子: 牟新雨 (4星), isMerged: false, skill: 愈战愈勇, id: chess_mou
+ [Buy] 棋子放入战场
+ [Buy] 购买成功，剩余金币: 1007, 战场棋子数: 1, 替补席棋子数: 0
+ [Game] 渲染商店格子...
+ [Game] 商店渲染完成，共 4 个棋子
+ [Game] checkAndAutoMerge() 自动检查是否可合成
+ [Buy] buyChess() 被调用, index: 2
+ [Buy] 当前金币: 1007, 战场棋子数: 1, 替补席棋子数: 0
+ [Buy] 购买棋子: 邓行知 (星级: 4)
+ [ChessUnit] 创建棋子: 邓行知 (4星), isMerged: false, skill: 永不言弃, id: chess_deng
+ [Buy] 棋子放入战场
+ [Buy] 购买成功，剩余金币: 1004, 战场棋子数: 2, 替补席棋子数: 0
+ [Game] 渲染商店格子...
+ [Game] 商店渲染完成，共 3 个棋子
+ [Game] checkAndAutoMerge() 自动检查是否可合成
+ [Buy] buyChess() 被调用, index: 0
+ [Buy] 当前金币: 1004, 战场棋子数: 2, 替补席棋子数: 0
+ [Buy] 购买棋子: 周奕辰 (星级: 5)
+ [ChessUnit] 创建棋子: 周奕辰 (5星), isMerged: false, skill: 借势而为, id: chess_zhou
+ [Buy] 棋子放入战场
+ [Buy] 购买成功，剩余金币: 1001, 战场棋子数: 3, 替补席棋子数: 0
+ [Game] 渲染商店格子...
+ [Game] 商店渲染完成，共 2 个棋子
+ [Game] checkAndAutoMerge() 自动检查是否可合成
+ [RightClick] 右键点击卡片: 刘祎盟
+ [SkillCheck] ========== 角色技能状态检测 ==========
+ [SkillCheck] 角色: 刘祎盟 (3星, 十班)
+ [SkillCheck] 基础属性: HP=4, ATK=3
+ [SkillCheck] ✓ 技能已加载
+ [SkillCheck]   技能名称: 精打细算
+ [SkillCheck]   技能描述: 受伤时50%概率使营帐升级价格-1
+ [SkillCheck]   技能图标: 🏕️
+ [SkillCheck]   触发类型: on_damage_taken
+ [SkillCheck] ✓ 技能效果函数已定义
+ [SkillCheck] ✓ 技能效果测试成功
+ [SkillCheck]   测试结果: {"type":"camp_upgrade_discount","discount":0,"success":false}
+ [SkillCheck]   是否金边: 否
+ [SkillCheck] =========================================
+ [Buy] buyChess() 被调用, index: 0
+ [Buy] 当前金币: 1001, 战场棋子数: 3, 替补席棋子数: 0
+ [Buy] 购买棋子: 刘祎盟 (星级: 3)
+ [ChessUnit] 创建棋子: 刘祎盟 (3星), isMerged: false, skill: 精打细算, id: chess_liu_yi_meng
+ [Buy] 棋子放入战场
+ [Buy] 购买成功，剩余金币: 998, 战场棋子数: 4, 替补席棋子数: 0
+ [Game] 渲染商店格子...
+ [Game] 商店渲染完成，共 1 个棋子
+ [Game] checkAndAutoMerge() 自动检查是否可合成
+ [Game] refreshShopWithCost() 被调用
+ [Game] 当前金币: 998
+ [Game] 花费3金币刷新商店，剩余金币: 995
+ [Game] refreshShop() 被调用
+ [Game] 刷新后商店棋子数量: 5
+ [Game] 渲染商店格子...
+ [Game] 商店渲染完成，共 5 个棋子
+ [Game] setupDragAndDrop() 被调用
+ [RightClick] 右键点击卡片: 邓行知
+ [SkillCheck] ========== 角色技能状态检测 ==========
+ [SkillCheck] 角色: 邓行知 (4星, 十班)
+ [SkillCheck] 基础属性: HP=3, ATK=3
+ [SkillCheck] ✓ 技能已加载
+ [SkillCheck]   技能名称: 永不言弃
+ [SkillCheck]   技能描述: 友方概率类技能首次失败时，使其再判定一次；成功时，使其永久+2/+2
+ [SkillCheck]   技能图标: 🔄
+ [SkillCheck]   触发类型: on_prob_skill_retry, on_prob_skill_success
+ [SkillCheck] ✓ 技能效果函数已定义
+ [SkillCheck] ✓ 技能效果测试成功
+ [SkillCheck]   测试结果: {"type":"retry_skill"}
+ [SkillCheck]   是否金边: 否
+ [SkillCheck] =========================================
+ [RightClick] 右键点击卡片: 董润羲
+ [SkillCheck] ========== 角色技能状态检测 ==========
+ [SkillCheck] 角色: 董润羲 (4星, 十班)
+ [SkillCheck] 基础属性: HP=4, ATK=4
+ [SkillCheck] ✓ 技能已加载
+ [SkillCheck]   技能名称: 连环增益
+ [SkillCheck]   技能描述: 开战时，50%概率永久+4/+4并再次判定，最多触发4次
+ [SkillCheck]   技能图标: ✨
+ [SkillCheck]   触发类型: on_battle_start
+ [SkillCheck] ✓ 技能效果函数已定义
+ [SkillCheck] ✓ 技能效果测试成功
+ [SkillCheck]   测试结果: null
+ [SkillCheck]   是否金边: 否
+ [SkillCheck] =========================================
+ [RightClick] 右键点击卡片: 孙方浩
+ [SkillCheck] ========== 角色技能状态检测 ==========
+ [SkillCheck] 角色: 孙方浩 (3星, 十班)
+ [SkillCheck] 基础属性: HP=3, ATK=3
+ [SkillCheck] ✓ 技能已加载
+ [SkillCheck]   技能名称: 战友情深
+ [SkillCheck]   技能描述: 开战时对两侧友方造成1点伤害，使其永久+1/+1
+ [SkillCheck]   技能图标: 🤝
+ [SkillCheck]   触发类型: on_battle_start
+ [SkillCheck] ✓ 技能效果函数已定义
+ [SkillCheck] ✗ 技能效果测试失败: Cannot read properties of undefined (reading 'indexOf')
+logCardSkillStatus @ game.js:405
+ [SkillCheck]   是否金边: 否
+ [SkillCheck] =========================================
+ [Buy] buyChess() 被调用, index: 3
+ [Buy] 当前金币: 995, 战场棋子数: 4, 替补席棋子数: 0
+ [Buy] 购买棋子: 董润羲 (星级: 4)
+ [ChessUnit] 创建棋子: 董润羲 (4星), isMerged: false, skill: 连环增益, id: chess_dong
+ [Buy] 棋子放入战场
+ [Buy] 购买成功，剩余金币: 992, 战场棋子数: 5, 替补席棋子数: 0
+ [Game] 渲染商店格子...
+ [Game] 商店渲染完成，共 4 个棋子
+ [Game] checkAndAutoMerge() 自动检查是否可合成
+ [RightClick] 右键点击卡片: 孙方浩
+ [SkillCheck] ========== 角色技能状态检测 ==========
+ [SkillCheck] 角色: 孙方浩 (3星, 十班)
+ [SkillCheck] 基础属性: HP=3, ATK=3
+ [SkillCheck] ✓ 技能已加载
+ [SkillCheck]   技能名称: 战友情深
+ [SkillCheck]   技能描述: 开战时对两侧友方造成1点伤害，使其永久+1/+1
+ [SkillCheck]   技能图标: 🤝
+ [SkillCheck]   触发类型: on_battle_start
+ [SkillCheck] ✓ 技能效果函数已定义
+ [SkillCheck] ✗ 技能效果测试失败: Cannot read properties of undefined (reading 'indexOf')
+logCardSkillStatus @ game.js:405
+ [SkillCheck]   是否金边: 否
+ [SkillCheck] =========================================
+ [Buy] buyChess() 被调用, index: 1
+ [Buy] 当前金币: 992, 战场棋子数: 5, 替补席棋子数: 0
+ [Buy] 购买棋子: 孙方浩 (星级: 3)
+ [ChessUnit] 创建棋子: 孙方浩 (3星), isMerged: false, skill: 战友情深, id: chess_sun
+ [Buy] 棋子放入战场
+ [Buy] 购买成功，剩余金币: 989, 战场棋子数: 6, 替补席棋子数: 0
+ [Game] 渲染商店格子...
+ [Game] 商店渲染完成，共 3 个棋子
+ [Game] checkAndAutoMerge() 自动检查是否可合成
+ [Game] refreshShopWithCost() 被调用
+ [Game] 当前金币: 989
+ [Game] 花费3金币刷新商店，剩余金币: 986
+ [Game] refreshShop() 被调用
+ [Game] 刷新后商店棋子数量: 5
+ [Game] 渲染商店格子...
+ [Game] 商店渲染完成，共 5 个棋子
+ [Game] setupDragAndDrop() 被调用
+ [RightClick] 右键点击卡片: 张之缈
+ [SkillCheck] ========== 角色技能状态检测 ==========
+ [SkillCheck] 角色: 张之缈 (4星, 十班)
+ [SkillCheck] 基础属性: HP=6, ATK=2
+ [SkillCheck] ✓ 技能已加载
+ [SkillCheck]   技能名称: 同甘共苦
+ [SkillCheck]   技能描述: 受伤时，使全体友方永久+1/+1
+ [SkillCheck]   技能图标: 💪
+ [SkillCheck]   触发类型: on_damage_taken
+ [SkillCheck] ✓ 技能效果函数已定义
+ [SkillCheck] ✓ 技能效果测试成功
+ [SkillCheck]   测试结果: {"type":"buff_all_allies","atk":1,"hp":1}
+ [SkillCheck]   是否金边: 否
+ [SkillCheck] =========================================
+ [RightClick] 右键点击卡片: 孙方浩
+ [SkillCheck] ========== 角色技能状态检测 ==========
+ [SkillCheck] 角色: 孙方浩 (3星, 十班)
+ [SkillCheck] 基础属性: HP=3, ATK=3
+ [SkillCheck] ✓ 技能已加载
+ [SkillCheck]   技能名称: 战友情深
+ [SkillCheck]   技能描述: 开战时对两侧友方造成1点伤害，使其永久+1/+1
+ [SkillCheck]   技能图标: 🤝
+ [SkillCheck]   触发类型: on_battle_start
+ [SkillCheck] ✓ 技能效果函数已定义
+ [SkillCheck] ✗ 技能效果测试失败: Cannot read properties of undefined (reading 'indexOf')
+logCardSkillStatus @ game.js:405
+ [SkillCheck]   是否金边: 否
+ [SkillCheck] =========================================
+ [Buy] buyChess() 被调用, index: 1
+ [Buy] 当前金币: 986, 战场棋子数: 6, 替补席棋子数: 0
+ [Buy] 购买棋子: 孙方浩 (星级: 3)
+ [ChessUnit] 创建棋子: 孙方浩 (3星), isMerged: false, skill: 战友情深, id: chess_sun
+ [Buy] 棋子放入战场
+ [Buy] 购买成功，剩余金币: 983, 战场棋子数: 7, 替补席棋子数: 0
+ [Game] 渲染商店格子...
+ [Game] 商店渲染完成，共 4 个棋子
+ [Game] checkAndAutoMerge() 自动检查是否可合成
+ [Game] 开始战斗按钮被点击
+ ========================================
+ [Battle] startBattle() 被调用
+ [Battle] 当前战场棋子数: 7
+ [Battle] 战场检查通过，开始战斗流程...
+ [Battle] 生成敌方队伍...
+ [GenerateEnemy] generateEnemy() 被调用
+ [GenerateEnemy] 当前回合: 8
+ [ChessUnit] 创建棋子: 神话1 (6星), isMerged: false, skill: 无, id: enemy_8_0
+ [ChessUnit] 创建棋子: 神话2 (6星), isMerged: false, skill: 无, id: enemy_8_1
+ [ChessUnit] 创建棋子: 神话3 (6星), isMerged: false, skill: 无, id: enemy_8_2
+ [ChessUnit] 创建棋子: 神话4 (6星), isMerged: false, skill: 无, id: enemy_8_3
+ [ChessUnit] 创建棋子: 神话5 (6星), isMerged: false, skill: 无, id: enemy_8_4
+ [ChessUnit] 创建棋子: 神话6 (6星), isMerged: false, skill: 无, id: enemy_8_5
+ [ChessUnit] 创建棋子: 神话7 (6星), isMerged: false, skill: 无, id: enemy_8_6
+ [GenerateEnemy] 获取敌方数据: {"heroName":"神话A","teamSize":7,"isBoss":false}
+ [GenerateEnemy] 敌方队伍生成完成，共 7 个棋子
+ [GenerateEnemy] 敌方英雄: 神话A
+ [Battle] 敌方英雄: 神话A
+ [Battle] 敌方棋子数: 7
+ [Battle] 更新敌方名称: 神话A (初级对抗)
+ [Battle] 调用 startNewBattleScene()...
+ [BattleScene] startNewBattleScene() 被调用
+ [BattleScene] BattleSceneSystem 已初始化
+ [BattleScene] 清空所有卡槽...
+ [BattleScene] 显示战斗场景...
+ [BattleScene] 准备我方角色数据...
+ [BattleScene] 我方棋子数量: 7
+ [BattleScene] 准备敌方角色数据...
+ [BattleScene] 敌方棋子数量: 7
+ [BattleScene] 延迟500ms后放置角色...
+ [BattleScene] 延迟2000ms后开始战斗...
+ ========================================
+ [BattleScene] 执行角色放置...
+ [BattleScene] 延迟300ms后初始化卡槽坐标...
+ [BattleScene] 初始化卡槽坐标系统...
+ [Coordinate] 初始化卡槽坐标系统...
+ [Coordinate] 坐标系统初始化完成 14 个卡槽
+ [BattleScene] 战斗开始!
+ 找不到指定的卡槽: enemy 2 4
+placeCard @ index.html:493
+ [BattleScene] 调用 executeBattleWithNewScene()...
+ [BattleLogic] executeBattleWithNewScene() 被调用
+ [Game] cloneChessUnit() - 复制棋子: 牟新雨 (4星)
+ [Game] cloneChessUnit() - 原始技能: hurt_gain_chess
+ [ChessUnit] 创建棋子: 牟新雨 (4星), isMerged: false, skill: 愈战愈勇, id: chess_mou
+ [BattleLogic] 我方棋子 牟新雨 设置位置: player, row=1, slot=1
+ [Game] cloneChessUnit() - 复制棋子: 邓行知 (4星)
+ [Game] cloneChessUnit() - 原始技能: retry_prob_skill
+ [ChessUnit] 创建棋子: 邓行知 (4星), isMerged: false, skill: 永不言弃, id: chess_deng
+ [BattleLogic] 我方棋子 邓行知 设置位置: player, row=1, slot=2
+ [Game] cloneChessUnit() - 复制棋子: 周奕辰 (5星)
+ [Game] cloneChessUnit() - 原始技能: battle_start_copy_left
+ [ChessUnit] 创建棋子: 周奕辰 (5星), isMerged: false, skill: 借势而为, id: chess_zhou
+ [BattleLogic] 我方棋子 周奕辰 设置位置: player, row=1, slot=3
+ [Game] cloneChessUnit() - 复制棋子: 刘祎盟 (3星)
+ [Game] cloneChessUnit() - 原始技能: hurt_prob_camp_upgrade
+ [ChessUnit] 创建棋子: 刘祎盟 (3星), isMerged: false, skill: 精打细算, id: chess_liu_yi_meng
+ [BattleLogic] 我方棋子 刘祎盟 设置位置: player, row=2, slot=1
+ [Game] cloneChessUnit() - 复制棋子: 董润羲 (4星)
+ [Game] cloneChessUnit() - 原始技能: battle_start_multi_buff
+chess.js:40 [ChessUnit] 创建棋子: 董润羲 (4星), isMerged: false, skill: 连环增益, id: chess_dong
+game.js:1192 [BattleLogic] 我方棋子 董润羲 设置位置: player, row=2, slot=2
+game.js:1750 [Game] cloneChessUnit() - 复制棋子: 孙方浩 (3星)
+game.js:1751 [Game] cloneChessUnit() - 原始技能: battle_start_side_buff
+chess.js:40 [ChessUnit] 创建棋子: 孙方浩 (3星), isMerged: false, skill: 战友情深, id: chess_sun
+game.js:1192 [BattleLogic] 我方棋子 孙方浩 设置位置: player, row=2, slot=3
+game.js:1750 [Game] cloneChessUnit() - 复制棋子: 孙方浩 (3星)
+game.js:1751 [Game] cloneChessUnit() - 原始技能: battle_start_side_buff
+chess.js:40 [ChessUnit] 创建棋子: 孙方浩 (3星), isMerged: false, skill: 战友情深, id: chess_sun
+game.js:1192 [BattleLogic] 我方棋子 孙方浩 设置位置: player, row=2, slot=1
+game.js:1750 [Game] cloneChessUnit() - 复制棋子: 神话1 (6星)
+game.js:1751 [Game] cloneChessUnit() - 原始技能: 无
+chess.js:40 [ChessUnit] 创建棋子: 神话1 (6星), isMerged: false, skill: 无, id: enemy_8_0
+game.js:1201 [BattleLogic] 敌方棋子 神话1 设置位置: enemy, row=1, slot=1
+game.js:1750 [Game] cloneChessUnit() - 复制棋子: 神话2 (6星)
+game.js:1751 [Game] cloneChessUnit() - 原始技能: 无
+chess.js:40 [ChessUnit] 创建棋子: 神话2 (6星), isMerged: false, skill: 无, id: enemy_8_1
+game.js:1201 [BattleLogic] 敌方棋子 神话2 设置位置: enemy, row=1, slot=2
+game.js:1750 [Game] cloneChessUnit() - 复制棋子: 神话3 (6星)
+game.js:1751 [Game] cloneChessUnit() - 原始技能: 无
+chess.js:40 [ChessUnit] 创建棋子: 神话3 (6星), isMerged: false, skill: 无, id: enemy_8_2
+game.js:1201 [BattleLogic] 敌方棋子 神话3 设置位置: enemy, row=1, slot=3
+game.js:1750 [Game] cloneChessUnit() - 复制棋子: 神话4 (6星)
+game.js:1751 [Game] cloneChessUnit() - 原始技能: 无
+chess.js:40 [ChessUnit] 创建棋子: 神话4 (6星), isMerged: false, skill: 无, id: enemy_8_3
+game.js:1201 [BattleLogic] 敌方棋子 神话4 设置位置: enemy, row=2, slot=1
+game.js:1750 [Game] cloneChessUnit() - 复制棋子: 神话5 (6星)
+game.js:1751 [Game] cloneChessUnit() - 原始技能: 无
+chess.js:40 [ChessUnit] 创建棋子: 神话5 (6星), isMerged: false, skill: 无, id: enemy_8_4
+game.js:1201 [BattleLogic] 敌方棋子 神话5 设置位置: enemy, row=2, slot=2
+game.js:1750 [Game] cloneChessUnit() - 复制棋子: 神话6 (6星)
+game.js:1751 [Game] cloneChessUnit() - 原始技能: 无
+chess.js:40 [ChessUnit] 创建棋子: 神话6 (6星), isMerged: false, skill: 无, id: enemy_8_5
+game.js:1201 [BattleLogic] 敌方棋子 神话6 设置位置: enemy, row=2, slot=3
+game.js:1750 [Game] cloneChessUnit() - 复制棋子: 神话7 (6星)
+game.js:1751 [Game] cloneChessUnit() - 原始技能: 无
+chess.js:40 [ChessUnit] 创建棋子: 神话7 (6星), isMerged: false, skill: 无, id: enemy_8_6
+game.js:1201 [BattleLogic] 敌方棋子 神话7 设置位置: enemy, row=2, slot=1
+game.js:1205 [BattleLogic] 我方单位数: 7, 敌方单位数: 7
+game.js:1253 [BattleLogic] 当前战斗速度: 1x
+game.js:1600 [BattleLogic] 开始执行战斗...
+game.js:1208 [BattleLogic] 处理开战技能...
+game.js:1216 [BattleLogic] 我方 周奕辰 开战技能触发: 借势而为
+game.js:1216 [BattleLogic] 我方 董润羲 开战技能触发: 连环增益
+game.js:1216 [BattleLogic] 我方 孙方浩 开战技能触发: 战友情深
+data.js:330 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'indexOf')
+    at Object.effect (data.js:330:47)
+    at processBattleStartSkills (game.js:1217:51)
+    at Game.executeBattleWithNewScene (game.js:1601:15)
+    at game.js:1172:26
+effect @ data.js:330
+processBattleStartSkills @ game.js:1217
+executeBattleWithNewScene @ game.js:1601
+(anonymous) @ game.js:1172

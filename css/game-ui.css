@@ -1,0 +1,1069 @@
+/**
+ * 游戏主界面样式
+ * 联合演习 - 回合制自走棋
+ * 
+ * 包含：游戏容器、顶栏、主区域、左右面板、商店、英雄区域、替补区域、出售区域、底栏等样式
+ */
+
+/* 游戏容器 */
+#game-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    gap: 8px;
+}
+
+/* 顶栏 */
+#top-bar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: rgba(45, 55, 72, 0.9);
+    padding: 8px 15px;
+    border-radius: 8px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+}
+
+.info-item .label {
+    font-size: 11px;
+    color: #a0aec0;
+}
+
+.info-item span:not(.label):not(.currency-badge) {
+    font-size: 14px;
+    font-weight: bold;
+    color: #f6e05e;
+}
+
+#top-bar button {
+    padding: 8px 16px;
+    background: #4299e1;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+#top-bar button:hover {
+    background: #3182ce;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(66, 153, 225, 0.4);
+}
+
+#top-bar button:disabled {
+    background: #718096;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* 主区域 */
+#main-area {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 10px;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* 左面板 */
+#left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 0;
+    overflow: hidden;
+}
+
+#enemy-area,
+#player-area {
+    background: rgba(45, 55, 72, 0.7);
+    border-radius: 8px;
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+#enemy-area {
+    flex: 1;
+    border: 1px solid rgba(252, 129, 129, 0.3);
+}
+
+#player-area {
+    flex: 1;
+    border: 1px solid rgba(72, 187, 120, 0.3);
+}
+
+.area-label {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 4px 0;
+    margin-bottom: 6px;
+    flex-shrink: 0;
+}
+
+#enemy-area .area-label {
+    color: #fc8181;
+}
+
+#player-area .area-label {
+    color: #48bb78;
+}
+
+#enemy-battlefield,
+#battlefield {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 4px;
+    min-height: 90px;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+#enemy-battlefield::-webkit-scrollbar,
+#battlefield::-webkit-scrollbar {
+    height: 6px;
+}
+
+#enemy-battlefield::-webkit-scrollbar-track,
+#battlefield::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+#enemy-battlefield::-webkit-scrollbar-thumb,
+#battlefield::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+#enemy-battlefield::-webkit-scrollbar-thumb:hover,
+#battlefield::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* 替补区域 */
+#bench-area {
+    background: rgba(45, 55, 72, 0.5);
+    border-radius: 8px;
+    padding: 8px 12px;
+    flex-shrink: 0;
+}
+
+#bench-area .area-label {
+    color: #a0aec0;
+}
+
+#bench {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 4px;
+    min-height: 70px;
+}
+
+#bench::-webkit-scrollbar {
+    height: 4px;
+}
+
+#bench::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+}
+
+#bench::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+}
+
+/* 右面板 */
+#right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* 商店 */
+#shop {
+    background: rgba(45, 55, 72, 0.7);
+    border-radius: 8px;
+    padding: 10px 12px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    border: 1px solid rgba(246, 224, 94, 0.3);
+}
+
+#shop .area-label {
+    color: #f6e05e;
+    flex-shrink: 0;
+}
+
+#shop-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+    gap: 8px;
+    overflow-y: auto;
+    flex: 1;
+    padding: 4px;
+}
+
+#shop-items::-webkit-scrollbar {
+    width: 6px;
+}
+
+#shop-items::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+#shop-items::-webkit-scrollbar-thumb {
+    background: rgba(246, 224, 94, 0.3);
+    border-radius: 3px;
+}
+
+#refresh-shop {
+    margin-top: 8px;
+    padding: 8px;
+    background: #48bb78;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+#refresh-shop:hover {
+    background: #38a169;
+    transform: translateY(-2px);
+}
+
+/* 英雄区域 */
+#hero-area {
+    background: rgba(45, 55, 72, 0.5);
+    border-radius: 8px;
+    padding: 10px 12px;
+    flex-shrink: 0;
+}
+
+#hero-area .area-label {
+    color: #f6e05e;
+}
+
+#hero-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    margin-top: 6px;
+}
+
+#hero-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    border: 2px solid #f6e05e;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #4299e1 0%, #9f7aea 100%);
+}
+
+.hero-details {
+    flex: 1;
+    min-width: 0;
+}
+
+#hero-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #e2e8f0;
+    margin-bottom: 4px;
+}
+
+#hero-skill {
+    font-size: 11px;
+    color: #a0aec0;
+}
+
+/* 单位卡片 */
+.unit-card {
+    min-width: 75px;
+    max-width: 85px;
+    width: 75px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 5px;
+    cursor: grab;
+    transition: all 0.25s ease;
+    position: relative;
+    flex-shrink: 0;
+    border: 1px solid transparent;
+}
+
+.unit-card:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    z-index: 10;
+}
+
+.unit-card.dragging {
+    opacity: 0.5;
+    cursor: grabbing;
+    transform: scale(1.1);
+}
+
+.unit-card .avatar {
+    width: 65px;
+    height: 42px;
+    border-radius: 4px;
+    margin: 0 auto;
+    display: block;
+    pointer-events: none;
+}
+
+.unit-card .name {
+    font-size: 9px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 2px;
+    color: #e2e8f0;
+}
+
+.unit-card .star {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    color: #f6e05e;
+    font-size: 9px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.unit-card .stats {
+    display: flex;
+    justify-content: space-around;
+    font-size: 7px;
+    margin-top: 2px;
+}
+
+.unit-card .stats .hp {
+    color: #fc8181;
+}
+
+.unit-card .stats .atk {
+    color: #68d391;
+}
+
+.unit-card .skill {
+    font-size: 7px;
+    color: #a0aec0;
+    text-align: center;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 12px;
+}
+
+.shop-card {
+    background: rgba(66, 153, 225, 0.15);
+    border: 1px solid rgba(66, 153, 225, 0.4);
+}
+
+.shop-card:hover {
+    border-color: #4299e1;
+    box-shadow: 0 0 15px rgba(66, 153, 225, 0.3);
+}
+
+.battlefield-card {
+    background: rgba(72, 187, 120, 0.15);
+    border: 1px solid rgba(72, 187, 120, 0.4);
+}
+
+.battlefield-card:hover {
+    border-color: #48bb78;
+    box-shadow: 0 0 15px rgba(72, 187, 120, 0.3);
+}
+
+.enemy-card {
+    background: rgba(252, 129, 129, 0.15);
+    border: 1px solid rgba(252, 129, 129, 0.4);
+}
+
+.enemy-card:hover {
+    border-color: #fc8181;
+    box-shadow: 0 0 15px rgba(252, 129, 129, 0.3);
+}
+
+.bench-card {
+    background: rgba(160, 174, 192, 0.15);
+    border: 1px solid rgba(160, 174, 192, 0.3);
+}
+
+.bench-card:hover {
+    border-color: #a0aec0;
+    box-shadow: 0 0 12px rgba(160, 174, 192, 0.2);
+}
+
+.unit-card.gold-border {
+    border: 3px solid #f6e05e !important;
+    box-shadow: 0 0 15px rgba(246, 224, 94, 0.6),
+                0 0 30px rgba(246, 224, 94, 0.3),
+                inset 0 0 10px rgba(246, 224, 94, 0.2);
+    background: linear-gradient(145deg, rgba(246, 224, 94, 0.15) 0%, rgba(255, 255, 255, 0.1) 100%);
+    animation: goldBorderPulse 2s ease-in-out infinite;
+}
+
+.unit-card.gold-border::before {
+    content: '✨';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 14px;
+    animation: sparkle 1.5s ease-in-out infinite;
+}
+
+.unit-card.gold-border .star {
+    color: #f6e05e;
+    text-shadow: 0 0 5px rgba(246, 224, 94, 0.8);
+}
+
+@keyframes goldBorderPulse {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(246, 224, 94, 0.6),
+                    0 0 30px rgba(246, 224, 94, 0.3),
+                    inset 0 0 10px rgba(246, 224, 94, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(246, 224, 94, 0.8),
+                    0 0 40px rgba(246, 224, 94, 0.5),
+                    inset 0 0 15px rgba(246, 224, 94, 0.3);
+    }
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(0.8);
+    }
+}
+
+/* 出售区域 */
+#sell-area {
+    background: rgba(45, 55, 72, 0.6);
+    border-radius: 8px;
+    padding: 8px 12px;
+    flex-shrink: 0;
+}
+
+.sell-label {
+    color: #fc8181;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.sell-zone {
+    border: 2px dashed rgba(252, 129, 129, 0.5);
+    border-radius: 8px;
+    padding: 12px;
+    min-height: 60px;
+    text-align: center;
+    transition: all 0.3s ease;
+    background: rgba(252, 129, 129, 0.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sell-zone:hover {
+    border-color: #f6ad55;
+    background: rgba(246, 173, 85, 0.08);
+}
+
+.sell-zone.drag-over {
+    border-color: #fc8181;
+    background: rgba(252, 129, 129, 0.2);
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(252, 129, 129, 0.4);
+    animation: sellZonePulse 0.5s ease-in-out infinite;
+}
+
+@keyframes sellZonePulse {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(252, 129, 129, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(252, 129, 129, 0.7);
+    }
+}
+
+.sell-placeholder {
+    color: #a0aec0;
+    font-size: 11px;
+    margin-bottom: 4px;
+}
+
+.sell-hint {
+    color: #f6e05e;
+    font-size: 10px;
+}
+
+/* 底栏 */
+#bottom-bar {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    background: rgba(45, 55, 72, 0.8);
+    padding: 8px 15px;
+    border-radius: 8px;
+    flex-shrink: 0;
+    font-size: 12px;
+}
+
+#bottom-bar span {
+    color: #a0aec0;
+}
+
+#bottom-bar #merge-count {
+    color: #f6e05e;
+    font-weight: bold;
+    margin: 0 4px;
+}
+
+#auto-merge {
+    padding: 8px 16px;
+    background: #9f7aea;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+#auto-merge:hover {
+    background: #805ad5;
+    transform: translateY(-2px);
+}
+
+/* 拖拽相关样式 */
+.drop-target {
+    border-color: #4299e1 !important;
+    background: rgba(66, 153, 225, 0.15) !important;
+    box-shadow: inset 0 0 20px rgba(66, 153, 225, 0.2);
+}
+
+/* ========== 移动端游戏UI优化 ========== */
+@media screen and (max-width: 768px) {
+    /* 游戏容器优化 */
+    #game-container {
+        padding: 6px;
+        gap: 6px;
+    }
+    
+    /* 单位卡片触摸优化 */
+    .unit-card {
+        cursor: pointer;
+        min-height: 70px;
+        touch-action: none;
+    }
+    
+    .unit-card:active {
+        transform: scale(0.95);
+    }
+    
+    /* 按钮触摸优化 */
+    #refresh-shop,
+    #auto-merge,
+    #top-bar button {
+        min-height: 44px;
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+    
+    /* 商店优化 - 横排滚动 */
+    #shop-items {
+        grid-template-columns: none;
+        display: flex;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+        padding: 6px 4px;
+    }
+    
+    /* 战场和替补区域优化 */
+    #enemy-battlefield,
+    #battlefield,
+    #bench {
+        -webkit-overflow-scrolling: touch;
+        padding: 6px 4px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* 更小屏幕的优化 */
+    #top-bar {
+        padding: 6px 8px;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+    
+    .info-item {
+        padding: 4px 8px;
+    }
+    
+    .info-item .label {
+        font-size: 9px;
+    }
+    
+    .info-item span:not(.label):not(.currency-badge) {
+        font-size: 11px;
+    }
+    
+    /* 单位卡片进一步缩小 */
+    .unit-card {
+        min-width: 65px;
+        max-width: 75px;
+        width: 65px;
+        padding: 4px;
+    }
+    
+    .unit-card .avatar {
+        width: 55px;
+        height: 35px;
+    }
+    
+    .unit-card .name {
+        font-size: 8px;
+    }
+    
+    .unit-card .stats {
+        font-size: 6px;
+    }
+    
+    .unit-card .skill {
+        font-size: 6px;
+    }
+    
+    /* 出售区域优化 */
+    .sell-zone {
+        min-height: 50px;
+        padding: 8px;
+    }
+    
+    .sell-placeholder {
+        font-size: 10px;
+    }
+    
+    /* 底栏优化 */
+    #bottom-bar {
+        padding: 6px 10px;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    
+    #bottom-bar span {
+        font-size: 11px;
+    }
+}
+
+/* 横屏模式进一步优化 */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+    /* 降低垂直间距 */
+    #game-container {
+        padding: 4px;
+        gap: 4px;
+    }
+    
+    #top-bar {
+        padding: 4px 8px;
+    }
+    
+    #enemy-area,
+    #player-area,
+    #bench-area,
+    #shop,
+    #sell-area {
+        padding: 6px 8px;
+    }
+    
+    .area-label {
+        font-size: 10px;
+        padding: 2px 0;
+        margin-bottom: 4px;
+    }
+}
+
+.dragging {
+    opacity: 0.5;
+    cursor: grabbing;
+}
+
+.drag-preview {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: scale(1.2);
+    opacity: 0.9;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+}
+
+.invalid-drop {
+    animation: invalidShake 0.3s ease-in-out;
+}
+
+@keyframes invalidShake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-8px);
+    }
+    75% {
+        transform: translateX(8px);
+    }
+}
+
+/* 货币相关样式 */
+.currency-value {
+    font-size: 14px;
+    font-weight: bold;
+    color: #f6e05e;
+    transition: all 0.3s ease;
+}
+
+.currency-value.increase {
+    animation: currencyIncrease 0.5s ease-out;
+}
+
+@keyframes currencyIncrease {
+    0% {
+        transform: scale(1);
+        color: #f6e05e;
+    }
+    50% {
+        transform: scale(1.3);
+        color: #48bb78;
+    }
+    100% {
+        transform: scale(1);
+        color: #f6e05e;
+    }
+}
+
+.currency-info {
+    background: rgba(246, 224, 94, 0.1);
+    padding: 4px 10px;
+    border-radius: 5px;
+    border: 1px solid rgba(246, 224, 94, 0.3);
+}
+
+.currency-badge {
+    font-size: 9px;
+    color: #a0aec0;
+    margin-left: 4px;
+    background: rgba(72, 187, 120, 0.2);
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+/* 开发者按钮 */
+.dev-top-btn {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(237, 137, 54, 0.4);
+}
+
+.dev-top-btn:hover {
+    background: linear-gradient(135deg, #dd6b20 0%, #c05621 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(237, 137, 54, 0.6);
+}
+
+/* 响应式设计 */
+@media (max-width: 900px) {
+    #main-area {
+        grid-template-columns: 1fr 200px;
+    }
+
+    .unit-card {
+        min-width: 65px;
+        width: 65px;
+    }
+
+    .unit-card .avatar {
+        width: 55px;
+        height: 36px;
+    }
+}
+
+@media (max-width: 700px) {
+    #main-area {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr auto;
+    }
+
+    #top-bar {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .info-item {
+        padding: 3px 8px;
+    }
+
+    #enemy-area,
+    #player-area {
+        min-height: 100px;
+    }
+
+    #right-panel {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    #shop {
+        flex: 2;
+        min-width: 200px;
+    }
+
+    #hero-area {
+        flex: 1;
+        min-width: 150px;
+    }
+
+    #sell-area {
+        width: 100%;
+    }
+}
+
+@media (max-height: 500px) and (orientation: landscape),
+       (max-width: 900px) and (orientation: landscape) {
+    #game-container {
+        padding: 5px;
+        gap: 5px;
+    }
+
+    #top-bar {
+        padding: 5px 10px;
+        gap: 8px;
+    }
+
+    #top-bar button {
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+
+    .info-item {
+        padding: 2px 6px;
+    }
+
+    .info-item .label {
+        font-size: 10px;
+    }
+
+    .info-item span:not(.label):not(.currency-badge) {
+        font-size: 12px;
+    }
+
+    #main-area {
+        grid-template-columns: 1fr 180px;
+        gap: 8px;
+    }
+
+    #left-panel {
+        gap: 5px;
+    }
+
+    #enemy-area,
+    #player-area {
+        padding: 5px 8px;
+    }
+
+    .area-label {
+        font-size: 11px;
+        padding: 2px 0;
+        margin-bottom: 4px;
+    }
+
+    #enemy-battlefield,
+    #battlefield {
+        min-height: 70px;
+        gap: 6px;
+        padding: 3px;
+    }
+
+    #bench {
+        min-height: 55px;
+        gap: 6px;
+    }
+
+    .unit-card {
+        min-width: 55px;
+        width: 55px;
+        padding: 3px;
+    }
+
+    .unit-card .avatar {
+        width: 48px;
+        height: 30px;
+    }
+
+    .unit-card .name {
+        font-size: 8px;
+    }
+
+    .unit-card .stats {
+        font-size: 7px;
+    }
+
+    .unit-card .star {
+        font-size: 7px;
+    }
+
+    #bench-area {
+        padding: 5px 8px;
+    }
+
+    #right-panel {
+        gap: 5px;
+    }
+
+    #shop {
+        padding: 6px 8px;
+    }
+
+    #shop-items {
+        grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
+        gap: 5px;
+    }
+
+/* 阵营系统样式 */
+.card-factions {
+    display: flex;
+    gap: 3px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.faction-tag {
+    display: inline-block;
+    padding: 1px 4px;
+    background: rgba(100, 150, 255, 0.2);
+    border: 1px solid rgba(100, 150, 255, 0.4);
+    border-radius: 3px;
+    font-size: 8px;
+    color: #a0c4ff;
+    white-space: nowrap;
+}
+
+.detail-factions {
+    background: rgba(45, 55, 72, 0.6);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 12px;
+}
+
+.factions-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.factions-icon {
+    font-size: 16px;
+}
+
+.factions-title {
+    font-size: 13px;
+    font-weight: bold;
+    color: #e2e8f0;
+}
+
+.factions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.faction-item {
+    padding: 8px 12px;
+    background: rgba(74, 128, 255, 0.15);
+    border: 1px solid rgba(74, 128, 255, 0.3);
+    border-radius: 6px;
+    font-size: 12px;
+    color: #b0c4ff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.faction-item.main-faction {
+    background: rgba(74, 222, 128, 0.15);
+    border-color: rgba(74, 222, 128, 0.4);
+    color: #90f0b0;
+}
+
+.faction-badge {
+    display: inline-block;
+    padding: 2px 6px;
+    background: rgba(74, 222, 128, 0.3);
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: bold;
+    color: #48bb78;
+}
+
+.faction-requirement {
+    text-align: center;
+    padding: 6px;
+    background: rgba(255, 170, 0, 0.15);
+    border: 1px dashed rgba(255, 170, 0, 0.4);
+    border-radius: 4px;
+    font-size: 11px;
+    color: #ffcc44;
+    margin-top: 4px;
+}

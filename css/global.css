@@ -1,0 +1,214 @@
+/**
+ * 全局基础样式
+ * 联合演习 - 回合制自走棋
+ *
+ * 包含：全局样式、通用工具类
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+body {
+    font-family: "Microsoft YaHei", "SimHei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    min-height: 100vh;
+    min-height: 100dvh;
+    color: #e2e8f0;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.touch-friendly-btn {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* 触摸优化 */
+button,
+.btn,
+.menu-btn,
+.filter-btn,
+.codex-close-btn,
+.detail-close-btn {
+    touch-action: manipulation;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* 防止双击缩放 */
+* {
+    touch-action: pan-y pinch-zoom;
+}
+
+/* 禁用文本选择 */
+button,
+.btn,
+.menu-btn,
+.filter-btn,
+.codex-close-btn,
+.detail-close-btn,
+.codex-card,
+.faction-icon {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* 改善滚动体验 */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* 防止图片拖拽 */
+img {
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+
+/* 防止长按选中 */
+* {
+    -webkit-touch-callout: none;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-30px);
+    }
+}
+
+@keyframes attackSlash {
+    0% {
+        opacity: 1;
+        transform: translateY(-50%) scaleX(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-50%) scaleX(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50%) scaleX(1.5);
+    }
+}
+
+@keyframes shieldFlash {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.1);
+    }
+}
+
+@keyframes deathFade {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}
+
+@keyframes burstParticle {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) translate(0, 0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) scale(0);
+    }
+}
+
+@keyframes flashPulse {
+    0% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.5);
+    }
+}
+
+@keyframes cardImpact {
+    0% {
+        transform: scale(1);
+    }
+    20% {
+        transform: scale(1.1) translateX(10px);
+    }
+    40% {
+        transform: scale(0.95) translateX(-5px);
+    }
+    60% {
+        transform: scale(1.05) translateX(3px);
+    }
+    80% {
+        transform: scale(1) translateX(-1px);
+    }
+    100% {
+        transform: scale(1) translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.1);
+    }
+}

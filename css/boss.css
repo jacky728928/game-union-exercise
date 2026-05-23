@@ -1,0 +1,184 @@
+/**
+ * Boss相关样式
+ * 联合演习 - 回合制自走棋
+ *
+ * 包含Boss警告、介绍弹窗和Boss单位样式
+ */
+
+/* Boss 警告提示 */
+.boss-warning {
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 500;
+    animation: bossWarningPulse 2s infinite;
+}
+
+.boss-warning.hidden {
+    display: none;
+}
+
+.warning-content {
+    background: linear-gradient(135deg, #8b0000 0%, #ff4444 100%);
+    padding: 12px 24px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+.warning-icon {
+    font-size: 24px;
+}
+
+@keyframes bossWarningPulse {
+    0%, 100% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.05); }
+}
+
+/* Boss 介绍弹窗 */
+.boss-intro-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.boss-intro-overlay.hidden {
+    display: none;
+}
+
+.boss-intro-dialog {
+    background: linear-gradient(180deg, #2d1f1f 0%, #1a1212 100%);
+    border: 3px solid #8b0000;
+    border-radius: 16px;
+    padding: 30px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 0 40px rgba(139, 0, 0, 0.7);
+    animation: bossIntroPop 0.5s ease-out;
+}
+
+@keyframes bossIntroPop {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.boss-intro-header h2 {
+    color: #ff4444;
+    text-align: center;
+    margin: 0 0 20px 0;
+    font-size: 28px;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+.boss-intro-content {
+    text-align: center;
+}
+
+.boss-icon-container {
+    margin: 20px 0;
+}
+
+.boss-icon {
+    font-size: 80px;
+    filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.8));
+}
+
+.boss-intro-content h3 {
+    color: #ffcc00;
+    font-size: 24px;
+    margin: 0 0 10px 0;
+}
+
+.boss-intro-content p {
+    color: #ccc;
+    margin: 0 0 25px 0;
+    line-height: 1.6;
+}
+
+.boss-skills {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.boss-skill {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.boss-skill:last-child {
+    border-bottom: none;
+}
+
+.skill-icon {
+    font-size: 32px;
+}
+
+.skill-info {
+    text-align: left;
+    flex: 1;
+}
+
+.skill-name {
+    color: #ff6b6b;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.skill-desc {
+    color: #aaa;
+    font-size: 13px;
+}
+
+.boss-intro-footer {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.boss-intro-close-btn {
+    background: linear-gradient(135deg, #8b0000 0%, #ff4444 100%);
+    color: white;
+    border: none;
+    padding: 14px 40px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.boss-intro-close-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+}
+
+/* Boss 单位样式 */
+.boss-unit {
+    background: linear-gradient(135deg, #8b0000 0%, #5c0000 100%) !important;
+    border: 3px solid #ffcc00 !important;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+    position: relative;
+}
+
+.boss-unit::before {
+    content: '👑';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    z-index: 10;
+}

@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Coding - 联合演习演示</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="brand-icon">✨</span>
+                <span class="brand-text">Vibe Coding</span>
+            </div>
+            <div class="nav-links">
+                <a href="#hero" class="nav-link">首页</a>
+                <a href="#vibe-coding" class="nav-link">Vibe Coding</a>
+                <a href="#demo" class="nav-link">项目演示</a>
+                <a href="#architecture" class="nav-link">架构设计</a>
+                <a href="#code-examples" class="nav-link">代码示例</a>
+                <a href="#tech-stack" class="nav-link">技术栈</a>
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <a href="code-viewer.html" class="nav-cta">深入代码</a>
+        </div>
+    </nav>
+
+    <!-- Hero 区域 -->
+    <section id="hero" class="hero">
+        <div class="hero-background">
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+            <div class="gradient-orb orb-3"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                <span class="badge-text">新一代开发方式</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="title-line">用</span>
+                <span class="title-gradient">Vibe Coding</span>
+                <span class="title-line">创造奇迹</span>
+            </h1>
+            <p class="hero-description">
+                通过直观的氛围驱动开发，快速构建出色的产品。<br>
+                让创意自然流动，让代码充满生命力。
+            </p>
+            <div class="hero-actions">
+                <a href="#demo" class="btn btn-primary">
+                    <span class="btn-text">查看项目演示</span>
+                    <span class="btn-icon">→</span>
+                </a>
+                <a href="#vibe-coding" class="btn btn-secondary">
+                    <span class="btn-text">了解更多</span>
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">创意驱动</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number">快速</span>
+                    <span class="stat-label">迭代开发</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number">有趣</span>
+                    <span class="stat-label">开发体验</span>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Vibe Coding 介绍 -->
+    <section id="vibe-coding" class="vibe-coding">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">什么是</span>
+                <h2 class="section-title">Vibe Coding</h2>
+                <p class="section-description">
+                    一种以创意和体验为核心的开发方法论
+                </p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3 class="feature-title">创意优先</h3>
+                    <p class="feature-description">
+                        让创意引领开发，让每个项目都充满独特的个性和魅力。
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">快速迭代</h3>
+                    <p class="feature-description">
+                        通过直观的反馈循环，快速验证想法，持续优化产品。
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3 class="feature-title">流畅体验</h3>
+                    <p class="feature-description">
+                        从概念到实现的无缝衔接，享受创造的每一个瞬间。
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💡</div>
+                    <h3 class="feature-title">灵感驱动</h3>
+                    <p class="feature-description">
+                        跟随灵感的指引，让代码成为表达想法的最佳载体。
+                    </p>
+                </div>
+            </div>
+
+            <div class="philosophy-section">
+                <div class="philosophy-content">
+                    <h3 class="philosophy-title">开发哲学</h3>
+                    <div class="philosophy-points">
+                        <div class="philosophy-point">
+                            <span class="point-number">01</span>
+                            <div class="point-content">
+                                <h4>保持好奇</h4>
+                                <p>对新技术、新想法保持开放和探索的态度</p>
+                            </div>
+                        </div>
+                        <div class="philosophy-point">
+                            <span class="point-number">02</span>
+                            <div class="point-content">
+                                <h4>拥抱变化</h4>
+                                <p>快速适应需求变化，灵活调整开发方向</p>
+                            </div>
+                        </div>
+                        <div class="philosophy-point">
+                            <span class="point-number">03</span>
+                            <div class="point-content">
+                                <h4>追求卓越</h4>
+                                <p>在每个细节上都力求完美，创造令人惊叹的作品</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="philosophy-visual">
+                    <div class="visual-circle"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目演示 -->
+    <section id="demo" class="demo-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">实战案例</span>
+                <h2 class="section-title">联合演习</h2>
+                <p class="section-description">
+                    一款用 Vibe Coding 打造的回合制自走棋游戏
+                </p>
+            </div>
+
+            <div class="demo-showcase">
+                <div class="demo-visual">
+                    <div class="demo-mockup">
+                        <div class="mockup-header">
+                            <div class="mockup-dots">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <span class="mockup-title">联合演习 - 游戏界面</span>
+                        </div>
+                        <div class="mockup-content">
+                            <div class="game-preview">
+                                <img src="../pic/1.jpeg" alt="游戏截图" class="preview-image">
+                                <div class="preview-overlay">
+                                    <a href="../index.html" class="preview-play">
+                                        <span class="play-icon">▶</span>
+                                        <span class="play-text">开始游戏</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-details">
+                    <div class="demo-badges">
+                        <span class="badge">🎮 游戏</span>
+                        <span class="badge">⚔️ 自走棋</span>
+                        <span class="badge">HTML5</span>
+                    </div>
+                    
+                    <h3 class="demo-title">回合制自走棋体验</h3>
+                    <p class="demo-description">
+                        「联合演习」是一款完整的回合制自走棋游戏，包含丰富的角色系统、
+                        策略性的战斗机制、以及流畅的用户体验。通过 Vibe Coding，
+                        我们快速实现了从概念到可玩产品的转变。
+                    </p>
+
+                    <div class="demo-features">
+                        <div class="demo-feature">
+                            <span class="feature-check">✓</span>
+                            <span>多种角色与技能系统</span>
+                        </div>
+                        <div class="demo-feature">
+                            <span class="feature-check">✓</span>
+                            <span>策略性排兵布阵</span>
+                        </div>
+                        <div class="demo-feature">
+                            <span class="feature-check">✓</span>
+                            <span>动态战斗场景</span>
+                        </div>
+                        <div class="demo-feature">
+                            <span class="feature-check">✓</span>
+                            <span>新手教程系统</span>
+                        </div>
+                        <div class="demo-feature">
+                            <span class="feature-check">✓</span>
+                            <span>响应式设计</span>
+                        </div>
+                        <div class="demo-feature">
+                            <span class="feature-check">✓</span>
+                            <span>完整的游戏流程</span>
+                        </div>
+                    </div>
+
+                    <div class="demo-actions">
+                        <a href="../index.html" class="btn btn-primary btn-large">
+                            <span class="btn-text">立即体验游戏</span>
+                            <span class="btn-icon">🎯</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技术栈 -->
+    <section id="tech-stack" class="tech-stack">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">技术基础</span>
+                <h2 class="section-title">技术栈</h2>
+                <p class="section-description">
+                    简洁而强大的技术组合，让创意无限延伸
+                </p>
+            </div>
+
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                            <polyline points="2,17 12,24 22,17"></polyline>
+                            <polyline points="2,12 12,19 22,12"></polyline>
+                        </svg>
+                    </div>
+                    <h4 class="tech-name">HTML5</h4>
+                    <p class="tech-desc">语义化标记</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12,2 22,8.5 22,15.5 12,22 2,15.5 2,8.5 12,2"></polygon>
+                        </svg>
+                    </div>
+                    <h4 class="tech-name">CSS3</h4>
+                    <p class="tech-desc">现代样式</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="16,18 22,12 16,6"></polyline>
+                            <polyline points="8,6 2,12 8,18"></polyline>
+                        </svg>
+                    </div>
+                    <h4 class="tech-name">JavaScript</h4>
+                    <p class="tech-desc">ES6+ 特性</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5"></path>
+                            <path d="M2 12l10 5 10-5"></path>
+                        </svg>
+                    </div>
+                    <h4 class="tech-name">纯前端</h4>
+                    <p class="tech-desc">无依赖</p>
+                </div>
+            </div>
+
+            <div class="architecture-info">
+                <div class="info-card">
+                    <h4>📁 项目结构</h4>
+                    <pre><code>游戏V1.3.3/
+├── 介绍/          # 介绍网页
+│   ├── index.html
+│   └── style.css
+├── css/           # 游戏样式
+├── js/            # 游戏逻辑
+├── pic/           # 图片资源
+└── index.html     # 游戏入口</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 架构设计 -->
+    <section id="architecture" class="architecture-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">系统设计</span>
+                <h2 class="section-title">架构设计</h2>
+                <p class="section-description">
+                    模块化、可扩展的游戏引擎架构
+                </p>
+            </div>
+
+            <div class="architecture-grid">
+                <div class="architecture-card">
+                    <div class="arch-icon">🎮</div>
+                    <h3>游戏核心层</h3>
+                    <p>处理游戏主循环、状态管理、事件分发</p>
+                    <div class="arch-modules">
+                        <span class="module-tag">game.js</span>
+                        <span class="module-tag">状态机</span>
+                        <span class="module-tag">事件系统</span>
+                    </div>
+                </div>
+
+                <div class="architecture-card">
+                    <div class="arch-icon">⚔️</div>
+                    <h3>战斗系统</h3>
+                    <p>回合制战斗逻辑、技能触发、伤害计算</p>
+                    <div class="arch-modules">
+                        <span class="module-tag">battle.js</span>
+                        <span class="module-tag">战斗AI</span>
+                        <span class="module-tag">动画系统</span>
+                    </div>
+                </div>
+
+                <div class="architecture-card">
+                    <div class="arch-icon">♟️</div>
+                    <h3>棋子系统</h3>
+                    <p>棋子属性、技能、合成进化机制</p>
+                    <div class="arch-modules">
+                        <span class="module-tag">chess.js</span>
+                        <span class="module-tag">属性系统</span>
+                        <span class="module-tag">技能树</span>
+                    </div>
+                </div>
+
+                <div class="architecture-card">
+                    <div class="arch-icon">🎨</div>
+                    <h3>UI/UX层</h3>
+                    <p>菜单界面、教程系统、响应式布局</p>
+                    <div class="arch-modules">
+                        <span class="module-tag">menu.js</span>
+                        <span class="module-tag">tutorial.js</span>
+                        <span class="module-tag">CSS3</span>
+                    </div>
+                </div>
+
+                <div class="architecture-card">
+                    <div class="arch-icon">🔧</div>
+                    <h3>诊断调试</h3>
+                    <p>性能监控、日志系统、开发者工具</p>
+                    <div class="arch-modules">
+                        <span class="module-tag">diagnostics.js</span>
+                        <span class="module-tag">logger.js</span>
+                        <span class="module-tag">调试面板</span>
+                    </div>
+                </div>
+
+                <div class="architecture-card">
+                    <div class="arch-icon">🚀</div>
+                    <h3>部署发布</h3>
+                    <p>静态托管、跨平台运行、无需构建</p>
+                    <div class="arch-modules">
+                        <span class="module-tag">Gitee Pages</span>
+                        <span class="module-tag">直接运行</span>
+                        <span class="module-tag">SEO友好</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="architecture-flow">
+                <h3>数据流设计</h3>
+                <div class="flow-diagram">
+                    <div class="flow-step">
+                        <span class="step-icon">📥</span>
+                        <span class="step-name">用户输入</span>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <span class="step-icon">⚙️</span>
+                        <span class="step-name">事件分发</span>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <span class="step-icon">🎯</span>
+                        <span class="step-name">状态更新</span>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <span class="step-icon">🎨</span>
+                        <span class="step-name">UI渲染</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 代码示例 -->
+    <section id="code-examples" class="code-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">核心代码</span>
+                <h2 class="section-title">代码示例</h2>
+                <p class="section-description">
+                    展示项目的关键技术实现
+                </p>
+            </div>
+
+            <div class="code-showcase">
+                <div class="code-tabs">
+                    <button class="code-tab active" data-tab="game-logic">游戏主逻辑</button>
+                    <button class="code-tab" data-tab="battle-system">战斗系统</button>
+                    <button class="code-tab" data-tab="chess-system">棋子系统</button>
+                </div>
+
+                <div class="code-panels">
+                    <div class="code-panel active" id="game-logic">
+                        <div class="code-header">
+                            <span class="code-lang">JavaScript</span>
+                            <span class="code-file">game.js - 核心游戏类</span>
+                        </div>
+                        <pre><code>class Game {
+    constructor() {
+        this.state = 'menu';
+        this.gold = 10;
+        this.round = 1;
+        this.campLevel = 1;
+        this.heroHP = 30;
+        this.playerUnits = [];
+        this.enemyUnits = [];
+    }
+
+    initGame() {
+        this.state = 'playing';
+        this.setupBoard();
+        this.startRound();
+    }
+
+    startRound() {
+        this.refreshShop();
+        this.startBattle();
+    }
+
+    upgradeCamp() {
+        if (this.gold >= this.getUpgradeCost()) {
+            this.gold -= this.getUpgradeCost();
+            this.campLevel++;
+            this.updateUI();
+        }
+    }
+}</code></pre>
+                    </div>
+
+                    <div class="code-panel" id="battle-system">
+                        <div class="code-header">
+                            <span class="code-lang">JavaScript</span>
+                            <span class="code-file">battle.js - 回合制战斗</span>
+                        </div>
+                        <pre><code>class BattleSystem {
+    constructor(game) {
+        this.game = game;
+        this.battleSpeed = 1;
+    }
+
+    async executeRound() {
+        const allUnits = [...this.game.playerUnits, 
+                         ...this.game.enemyUnits];
+        
+        for (const unit of allUnits) {
+            if (unit.isAlive()) {
+                await this.processUnitTurn(unit);
+                await this.delay(500 / this.battleSpeed);
+            }
+        }
+        
+        this.checkBattleEnd();
+    }
+
+    processUnitTurn(unit) {
+        const target = this.findTarget(unit);
+        if (target) {
+            const damage = this.calculateDamage(unit, target);
+            target.takeDamage(damage);
+            this.showDamageEffect(unit, target, damage);
+        }
+    }
+}</code></pre>
+                    </div>
+
+                    <div class="code-panel" id="chess-system">
+                        <div class="code-header">
+                            <span class="code-lang">JavaScript</span>
+                            <span class="code-file">chess.js - 棋子与技能</span>
+                        </div>
+                        <pre><code>class ChessUnit {
+    constructor(config) {
+        this.id = config.id;
+        this.name = config.name;
+        this.hp = config.hp;
+        this.maxHp = config.maxHp;
+        this.atk = config.atk;
+        this.stars = config.stars || 1;
+        this.skill = new Skill(config.skillConfig);
+    }
+
+    takeDamage(amount) {
+        this.hp = Math.max(0, this.hp - amount);
+        if (this.hp <= 0) {
+            this.onDeath();
+        }
+    }
+
+    useSkill(targets) {
+        return this.skill.execute(this, targets);
+    }
+
+    canMerge(other) {
+        return this.name === other.name && 
+               this.stars === other.stars;
+    }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-features">
+                <div class="code-feature">
+                    <h4>🎯 ES6+ 特性</h4>
+                    <p>使用类、模块、解构赋值、箭头函数等现代语法</p>
+                </div>
+                <div class="code-feature">
+                    <h4>📦 模块化设计</h4>
+                    <p>清晰的关注点分离，便于维护和扩展</p>
+                </div>
+                <div class="code-feature">
+                    <h4>⚡ 异步处理</h4>
+                    <p>Promise 和 async/await 处理战斗动画时序</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技术特性 -->
+    <section id="tech-features" class="tech-features-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">技术亮点</span>
+                <h2 class="section-title">技术特性</h2>
+                <p class="section-description">
+                    高级前端技术的综合应用
+                </p>
+            </div>
+
+            <div class="features-showcase">
+                <div class="feature-detail">
+                    <div class="feature-icon-large">🎨</div>
+                    <div class="feature-content">
+                        <h3>现代化CSS</h3>
+                        <ul>
+                            <li>CSS Grid & Flexbox 布局</li>
+                            <li>CSS Variables 主题系统</li>
+                            <li>CSS Animations & Transitions</li>
+                            <li>Backdrop-filter 毛玻璃效果</li>
+                            <li>响应式设计，移动端适配</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-detail">
+                    <div class="feature-icon-large">⚡</div>
+                    <div class="feature-content">
+                        <h3>高性能JavaScript</h3>
+                        <ul>
+                            <li>面向对象编程 (OOP)</li>
+                            <li>事件驱动架构</li>
+                            <li>异步编程模式</li>
+                            <li>性能优化技巧</li>
+                            <li>内存泄漏防护</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-detail">
+                    <div class="feature-icon-large">♿</div>
+                    <div class="feature-content">
+                        <h3>无障碍设计</h3>
+                        <ul>
+                            <li>语义化HTML标签</li>
+                            <li>键盘导航支持</li>
+                            <li>清晰的视觉层级</li>
+                            <li>触摸友好界面</li>
+                            <li>横竖屏自适应</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-detail">
+                    <div class="feature-icon-large">🔄</div>
+                    <div class="feature-content">
+                        <h3>状态管理</h3>
+                        <ul>
+                            <li>集中式状态管理</li>
+                            <li>实时UI同步更新</li>
+                            <li>撤销/重做支持</li>
+                            <li>状态持久化</li>
+                            <li>调试友好</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 开发亮点 -->
+    <section id="highlights" class="highlights-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">为什么选择我们</span>
+                <h2 class="section-title">开发亮点</h2>
+                <p class="section-description">
+                    区别于传统开发的独特优势
+                </p>
+            </div>
+
+            <div class="highlights-grid">
+                <div class="highlight-card">
+                    <span class="highlight-number">01</span>
+                    <h3>极速开发</h3>
+                    <p>通过 Vibe Coding 方法，从概念到可运行产品仅需数小时，而不是数周。</p>
+                </div>
+                <div class="highlight-card">
+                    <span class="highlight-number">02</span>
+                    <h3>零依赖</h3>
+                    <p>纯原生技术栈，无需 npm install，开箱即用，降低维护成本。</p>
+                </div>
+                <div class="highlight-card">
+                    <span class="highlight-number">03</span>
+                    <h3>跨平台</h3>
+                    <p>一次编写，多端运行。支持桌面浏览器、移动端、平板设备。</p>
+                </div>
+                <div class="highlight-card">
+                    <span class="highlight-number">04</span>
+                    <h3>易于部署</h3>
+                    <p>静态文件即可部署，支持 GitHub Pages、Gitee Pages 等免费托管。</p>
+                </div>
+                <div class="highlight-card">
+                    <span class="highlight-number">05</span>
+                    <h3>代码质量</h3>
+                    <p>遵循最佳实践，清晰的架构设计，详细的代码注释（可选）。</p>
+                </div>
+                <div class="highlight-card">
+                    <span class="highlight-number">06</span>
+                    <h3>持续迭代</h3>
+                    <p>基于用户反馈快速迭代，功能不断完善，用户体验持续优化。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trae Solo 介绍 -->
+    <section id="trae-solo" class="trae-solo-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">开发工具</span>
+                <h2 class="section-title">Trae Solo</h2>
+                <p class="section-description">
+                    新一代 AI 辅助开发工具
+                </p>
+            </div>
+
+            <div class="trae-showcase">
+                <div class="trae-visual">
+                    <div class="trae-icon-box">
+                        <img src="../pic/trae solo.png" alt="Trae Solo" class="trae-icon-img">
+                    </div>
+                    <div class="trae-badge">AI-Powered Development</div>
+                </div>
+
+                <div class="trae-content">
+                    <h3>什么是 Trae Solo？</h3>
+                    <p class="trae-description">
+                        Trae Solo 是一款创新的 AI 辅助开发工具，专为开发者设计。它能够理解您的需求，帮助您快速构建高质量的软件项目。
+                    </p>
+
+                    <div class="trae-features">
+                        <div class="trae-feature">
+                            <span class="feature-icon">⚡</span>
+                            <div class="feature-info">
+                                <h4>智能代码生成</h4>
+                                <p>根据自然语言描述自动生成高质量代码</p>
+                            </div>
+                        </div>
+                        <div class="trae-feature">
+                            <span class="feature-icon">🎯</span>
+                            <div class="feature-info">
+                                <h4>需求分析</h4>
+                                <p>深入理解用户需求，提供最佳实现方案</p>
+                            </div>
+                        </div>
+                        <div class="trae-feature">
+                            <span class="feature-icon">🔧</span>
+                            <div class="feature-info">
+                                <h4>代码优化</h4>
+                                <p>智能分析并优化现有代码，提升性能</p>
+                            </div>
+                        </div>
+                        <div class="trae-feature">
+                            <span class="feature-icon">📚</span>
+                            <div class="feature-info">
+                                <h4>文档生成</h4>
+                                <p>自动生成项目文档和技术说明</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trae-workflow">
+                <h3>工作流程</h3>
+                <div class="workflow-steps">
+                    <div class="workflow-step">
+                        <span class="step-number">01</span>
+                        <span class="step-title">描述需求</span>
+                        <p class="step-desc">用自然语言描述您想要构建的功能</p>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <span class="step-number">02</span>
+                        <span class="step-title">智能分析</span>
+                        <p class="step-desc">Trae Solo 理解并分析您的需求</p>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <span class="step-number">03</span>
+                        <span class="step-title">生成代码</span>
+                        <p class="step-desc">自动生成高质量代码和文档</p>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <span class="step-number">04</span>
+                        <span class="step-title">迭代完善</span>
+                        <p class="step-desc">根据反馈持续优化</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trae-benefits">
+                <div class="benefit-card">
+                    <span class="benefit-number">10x</span>
+                    <span class="benefit-label">开发效率提升</span>
+                </div>
+                <div class="benefit-card">
+                    <span class="benefit-number">80%</span>
+                    <span class="benefit-label">代码质量提升</span>
+                </div>
+                <div class="benefit-card">
+                    <span class="benefit-number">24/7</span>
+                    <span class="benefit-label">全天候支持</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="brand-icon">✨</span>
+                    <span class="brand-text">Vibe Coding</span>
+                </div>
+                <p class="footer-text">
+                    用创意驱动开发，让代码充满生命力
+                </p>
+                <div class="footer-links">
+                    <a href="#hero" class="footer-link">回到顶部</a>
+                    <span class="footer-divider">•</span>
+                    <a href="../index.html" class="footer-link">体验游戏</a>
+                </div>
+                <p class="footer-copyright">
+                    © 2026 东兴工作室 · 用 Vibe Coding 打造
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 汉堡菜单切换
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', () => {
+                navToggle.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+            
+            // 点击导航链接后关闭菜单
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+        }
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // 导航栏滚动效果
+        const navbar = document.querySelector('.navbar');
+        let lastScroll = 0;
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        });
+        
+        // 元素淡入动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.feature-card, .demo-showcase, .tech-item').forEach(el => {
+            el.classList.add('fade-in');
+            observer.observe(el);
+        });
+        
+        document.querySelectorAll('.architecture-card, .code-showcase, .code-feature, .feature-detail, .highlight-card').forEach(el => {
+            el.classList.add('fade-in');
+            observer.observe(el);
+        });
+        
+        // 代码Tab切换
+        const codeTabs = document.querySelectorAll('.code-tab');
+        const codePanels = document.querySelectorAll('.code-panel');
+        
+        codeTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetTab = tab.dataset.tab;
+                
+                codeTabs.forEach(t => t.classList.remove('active'));
+                codePanels.forEach(p => p.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+        
+        // 响应式处理：窗口大小改变时关闭菜单
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 968) {
+                navToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

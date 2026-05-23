@@ -1,0 +1,522 @@
+/**
+ * 响应式样式
+ * 联合演习 - 回合制自走棋
+ *
+ * 包含：媒体查询、响应式布局、触摸友好样式
+ */
+
+#landscape-warning {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 99999;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+#landscape-warning.show {
+    display: flex;
+}
+
+#landscape-warning .warning-icon {
+    font-size: 80px;
+    margin-bottom: 20px;
+}
+
+#landscape-warning .warning-text {
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+#landscape-warning .warning-subtext {
+    font-size: 16px;
+    color: #aaa;
+}
+
+.touch-friendly {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.touch-friendly button,
+.touch-friendly .btn {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* 通用移动端优化 */
+@media screen and (max-width: 1024px) {
+    body {
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* 平板设备 */
+@media screen and (max-width: 900px) {
+    /* 开始菜单 */
+    .logo-title {
+        font-size: 3rem !important;
+    }
+    
+    .logo-subtitle {
+        font-size: 1.2rem !important;
+    }
+    
+    .menu-nav {
+        width: 260px;
+    }
+    
+    .menu-btn {
+        padding: 14px 20px;
+        font-size: 1.1rem;
+    }
+    
+    /* 游戏主界面 */
+    #main-area {
+        grid-template-columns: 1fr 220px;
+        gap: 8px;
+    }
+    
+    /* 图鉴 */
+    .codex-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 12px;
+        padding: 16px;
+    }
+}
+
+/* 大屏手机 */
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+    
+    /* 开始菜单 */
+    .logo-title {
+        font-size: 2.5rem !important;
+    }
+    
+    .logo-subtitle {
+        font-size: 1rem !important;
+    }
+    
+    .menu-nav {
+        width: 240px;
+        gap: 12px;
+    }
+    
+    .menu-btn {
+        padding: 12px 18px;
+        font-size: 1rem;
+        min-height: 50px;
+    }
+    
+    /* 游戏主界面 */
+    #game-container {
+        padding: 6px;
+        gap: 6px;
+    }
+    
+    #top-bar {
+        padding: 6px 10px;
+        gap: 8px;
+    }
+    
+    #top-bar button {
+        padding: 6px 12px;
+        min-height: 40px;
+    }
+    
+    #main-area {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+    }
+    
+    /* 战场和商店布局调整 */
+    #right-panel {
+        order: -1;
+    }
+    
+    /* 商店优化 */
+    #shop-items {
+        display: flex;
+        overflow-x: auto;
+        gap: 8px;
+        padding: 8px;
+    }
+    
+    /* 图鉴 */
+    #codex-container {
+        width: 95%;
+        max-height: 90vh;
+    }
+    
+    .codex-grid {
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 10px;
+        padding: 14px;
+    }
+    
+    /* 阵营系统 */
+    .faction-container {
+        left: 6px;
+        padding: 10px 8px;
+    }
+    
+    /* 详情面板 */
+    .codex-detail-content {
+        width: 95%;
+        max-width: 500px;
+    }
+}
+
+/* 中等手机 */
+@media screen and (max-width: 600px) {
+    body {
+        font-size: 13px;
+    }
+    
+    /* 开始菜单 */
+    .logo-title {
+        font-size: 2rem !important;
+    }
+    
+    .logo-subtitle {
+        font-size: 0.9rem !important;
+    }
+    
+    .menu-nav {
+        width: 220px;
+        gap: 10px;
+    }
+    
+    .menu-btn {
+        padding: 10px 16px;
+        font-size: 0.95rem;
+    }
+    
+    .btn-icon {
+        font-size: 1.3rem;
+    }
+    
+    /* 游戏主界面 */
+    #game-container {
+        padding: 4px;
+        gap: 4px;
+    }
+    
+    #top-bar {
+        padding: 5px 8px;
+        flex-wrap: wrap;
+    }
+    
+    .info-item {
+        padding: 3px 8px;
+    }
+    
+    /* 战场棋子大小优化 */
+    #enemy-battlefield,
+    #battlefield {
+        min-height: 75px;
+        gap: 6px;
+    }
+    
+    /* 商店优化 */
+    #shop {
+        padding: 8px;
+    }
+    
+    #shop-title {
+        font-size: 12px;
+    }
+    
+    /* 图鉴 */
+    .codex-header {
+        padding: 16px;
+    }
+    
+    .codex-header h2 {
+        font-size: 22px;
+    }
+    
+    .codex-close-btn {
+        width: 36px;
+        height: 36px;
+    }
+    
+    /* 阵营系统 */
+    .faction-icon {
+        padding: 8px 10px;
+        gap: 8px;
+    }
+    
+    .faction-image {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .faction-name {
+        font-size: 12px;
+    }
+    
+    /* 通知 */
+    .notification {
+        max-width: 90%;
+        left: 5%;
+    }
+}
+
+/* 小屏手机 */
+@media screen and (max-width: 480px) {
+    body {
+        font-size: 12px;
+    }
+    
+    /* 开始菜单 */
+    .game-logo {
+        margin-bottom: 10px;
+    }
+    
+    .logo-title {
+        font-size: 1.8rem !important;
+    }
+    
+    .logo-subtitle {
+        font-size: 0.8rem !important;
+        letter-spacing: 2px;
+    }
+    
+    .menu-content {
+        gap: 30px;
+    }
+    
+    .menu-nav {
+        width: 200px;
+        gap: 8px;
+    }
+    
+    .menu-btn {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+        gap: 12px;
+    }
+    
+    /* 游戏主界面 */
+    #top-bar {
+        padding: 4px 6px;
+        gap: 6px;
+    }
+    
+    .info-item {
+        padding: 3px 6px;
+        gap: 4px;
+    }
+    
+    .info-item .label {
+        font-size: 10px;
+    }
+    
+    .info-item span:not(.label):not(.currency-badge) {
+        font-size: 12px;
+    }
+    
+    /* 战场区域 */
+    #enemy-area,
+    #player-area {
+        padding: 6px 8px;
+    }
+    
+    .area-label {
+        font-size: 11px;
+        padding: 2px 0;
+        margin-bottom: 4px;
+    }
+    
+    #enemy-battlefield,
+    #battlefield {
+        min-height: 65px;
+        gap: 5px;
+        padding: 3px;
+    }
+    
+    /* 图鉴 */
+    #codex-container {
+        width: 98%;
+        border-radius: 12px;
+    }
+    
+    .codex-header {
+        padding: 14px 12px;
+    }
+    
+    .codex-header h2 {
+        font-size: 18px;
+    }
+    
+    .codex-search-input {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+    
+    .codex-filters {
+        padding: 10px 12px;
+        gap: 6px;
+    }
+    
+    .filter-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+        min-height: 36px;
+    }
+    
+    .codex-grid {
+        grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
+        gap: 8px;
+        padding: 12px;
+    }
+    
+    .codex-card {
+        padding: 10px;
+    }
+    
+    .codex-card .card-avatar {
+        height: 55px;
+        margin-bottom: 8px;
+    }
+    
+    .codex-card .card-name {
+        font-size: 13px;
+    }
+    
+    /* 阵营系统 */
+    .faction-container {
+        display: none;
+    }
+    
+    /* 添加移动端阵营切换按钮 */
+    .faction-toggle-btn {
+        display: block;
+        position: fixed;
+        bottom: 15px;
+        left: 15px;
+        z-index: 100;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(66, 153, 225, 0.4);
+    }
+    
+    /* 详情面板 */
+    .codex-detail-content {
+        width: 98%;
+        border-radius: 14px;
+    }
+    
+    .codex-detail-header {
+        padding: 20px;
+        gap: 16px;
+    }
+    
+    .detail-avatar {
+        width: 90px;
+        height: 60px;
+    }
+    
+    .detail-info h3 {
+        font-size: 20px;
+    }
+    
+    .detail-stats {
+        gap: 12px;
+    }
+    
+    .detail-stats .stat-item {
+        padding: 14px 18px;
+        min-width: 100px;
+    }
+    
+    .codex-detail-body {
+        padding: 20px;
+    }
+}
+
+/* 超小屏手机 */
+@media screen and (max-width: 360px) {
+    body {
+        font-size: 11px;
+    }
+    
+    .menu-nav {
+        width: 180px;
+    }
+    
+    .menu-btn {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+    
+    .codex-grid {
+        grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+        gap: 6px;
+    }
+}
+
+/* 横屏模式优化 */
+@media screen and (orientation: landscape) and (max-width: 900px) {
+    /* 横屏下游戏界面优化 */
+    #main-area {
+        grid-template-columns: 1fr 200px;
+        grid-template-rows: auto;
+    }
+    
+    #right-panel {
+        order: 0;
+    }
+    
+    /* 减少垂直间距 */
+    #game-container {
+        padding: 4px;
+        gap: 4px;
+    }
+    
+    #enemy-area,
+    #player-area {
+        padding: 6px 8px;
+    }
+    
+    /* 阵营系统 */
+    .faction-container {
+        display: flex;
+        max-height: 60vh;
+    }
+}
+
+/* 竖屏模式 - 优化显示，不再强制横屏 */
+@media screen and (orientation: portrait) and (max-width: 600px) {
+    /* 移除强制横屏警告 */
+    #landscape-warning {
+        display: none !important;
+    }
+}
+
+/* 高 DPI 屏幕优化 */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .logo-title,
+    .detail-info h3 {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}

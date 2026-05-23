@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代码展示 - 联合演习游戏</title>
+    <link rel="stylesheet" href="code-viewer.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="brand-icon">💻</span>
+                <span class="brand-text">代码展示</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">返回首页</a>
+                <a href="#game-code" class="nav-link">游戏核心</a>
+                <a href="#battle-code" class="nav-link">战斗系统</a>
+                <a href="#chess-code" class="nav-link">棋子系统</a>
+                <a href="#menu-code" class="nav-link">界面系统</a>
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <a href="../index.html" class="nav-cta">体验游戏</a>
+        </div>
+    </nav>
+
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                <span class="badge-text">深入技术实现</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="title-gradient">游戏代码</span>
+                <span class="title-line">深度解析</span>
+            </h1>
+            <p class="hero-description">
+                探索「联合演习」自走棋游戏的核心代码实现，<br>
+                了解现代化前端技术的最佳实践。
+            </p>
+        </div>
+    </section>
+
+    <section id="game-code" class="code-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">核心模块</span>
+                <h2 class="section-title">游戏主逻辑</h2>
+                <p class="section-description">game.js - 游戏状态管理与主循环</p>
+            </div>
+
+            <div class="code-showcase">
+                <div class="code-header">
+                    <div class="header-left">
+                        <span class="code-lang">JavaScript</span>
+                        <span class="code-file">js/game.js</span>
+                    </div>
+                    <button class="copy-btn" data-target="game-code-block">复制代码</button>
+                </div>
+                <pre id="game-code-block"><code><span class="keyword">class</span> <span class="class-name">Game</span> {
+    <span class="keyword">constructor</span>() {
+        <span class="comment">// 游戏状态</span>
+        <span class="this-keyword">this</span>.state = <span class="string">'menu'</span>;
+        <span class="this-keyword">this</span>.gold = <span class="number">10</span>;
+        <span class="this-keyword">this</span>.round = <span class="number">1</span>;
+        <span class="this-keyword">this</span>.campLevel = <span class="number">1</span>;
+        <span class="this-keyword">this</span>.heroHP = <span class="number">30</span>;
+        
+        <span class="comment">// 棋子数据</span>
+        <span class="this-keyword">this</span>.playerUnits = [];
+        <span class="this-keyword">this</span>.enemyUnits = [];
+        <span class="this-keyword">this</span>.benchUnits = [];
+        <span class="this-keyword">this</span>.shopItems = [];
+        
+        <span class="comment">// UI引用</span>
+        <span class="this-keyword">this</span>.ui = <span class="keyword">new</span> <span class="class-name">GameUI</span>();
+        
+        <span class="this-keyword">this</span>.<span class="method-name">initEventListeners</span>();
+    }
+
+    <span class="method-name">initEventListeners</span>() {
+        <span class="comment">// 绑定游戏事件</span>
+        document.addEventListener(<span class="string">'goldChange'</span>, 
+            <span class="this-keyword">this</span>.<span class="method-name">onGoldChange</span>.bind(<span class="this-keyword">this</span>));
+        document.addEventListener(<span class="string">'roundChange'</span>, 
+            <span class="this-keyword">this</span>.<span class="method-name">onRoundChange</span>.bind(<span class="this-keyword">this</span>));
+    }
+
+    <span class="method-name">initGame</span>() {
+        <span class="this-keyword">this</span>.state = <span class="string">'playing'</span>;
+        <span class="this-keyword">this</span>.<span class="method-name">setupBoard</span>();
+        <span class="this-keyword">this</span>.<span class="method-name">refreshShop</span>();
+        <span class="this-keyword">this</span>.ui.<span class="method-name">updateUI</span>();
+    }
+
+    <span class="method-name">startRound</span>() {
+        <span class="this-keyword">this</span>.round++;
+        <span class="this-keyword">this</span>.gold += <span class="this-keyword">this</span>.<span class="method-name">getIncome</span>();
+        
+        <span class="comment">// AI生成敌方棋子</span>
+        <span class="this-keyword">this</span>.<span class="method-name">generateEnemyUnits</span>();
+        
+        <span class="this-keyword">this</span>.ui.<span class="method-name">updateUI</span>();
+    }
+
+    <span class="method-name">upgradeCamp</span>() {
+        <span class="keyword">const</span> cost = <span class="this-keyword">this</span>.<span class="method-name">getUpgradeCost</span>();
+        <span class="keyword">if</span> (<span class="this-keyword">this</span>.gold >= cost) {
+            <span class="this-keyword">this</span>.gold -= cost;
+            <span class="this-keyword">this</span>.campLevel++;
+            <span class="this-keyword">this</span>.ui.<span class="method-name">showUpgradeEffect</span>();
+        }
+    }
+
+    <span class="method-name">getUpgradeCost</span>() {
+        <span class="keyword">return</span> <span class="this-keyword">this</span>.campLevel * <span class="number">10</span>;
+    }
+
+    <span class="method-name">getIncome</span>() {
+        <span class="keyword">return</span> <span class="number">3</span> + <span class="this-keyword">this</span>.campLevel;
+    }
+}</code></pre>
+            </div>
+
+            <div class="code-analysis">
+                <h3>📊 代码解析</h3>
+                <div class="analysis-grid">
+                    <div class="analysis-card">
+                        <h4>状态管理</h4>
+                        <p>集中式状态管理，通过单一Game实例控制游戏全局状态，便于调试和状态恢复。</p>
+                    </div>
+                    <div class="analysis-card">
+                        <h4>事件驱动</h4>
+                        <p>使用CustomEvent实现组件间通信，解耦UI层与逻辑层，提升代码可维护性。</p>
+                    </div>
+                    <div class="analysis-card">
+                        <h4>策略模式</h4>
+                        <p>收入计算、升级成本等逻辑封装为独立方法，便于后续扩展和数值平衡调整。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="battle-code" class="code-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">战斗系统</span>
+                <h2 class="section-title">回合制战斗</h2>
+                <p class="section-description">battle.js - 战斗逻辑与技能系统</p>
+            </div>
+
+            <div class="code-showcase">
+                <div class="code-header">
+                    <div class="header-left">
+                        <span class="code-lang">JavaScript</span>
+                        <span class="code-file">js/battle.js</span>
+                    </div>
+                    <button class="copy-btn" data-target="battle-code-block">复制代码</button>
+                </div>
+                <pre id="battle-code-block"><code><span class="keyword">class</span> <span class="class-name">BattleSystem</span> {
+    <span class="keyword">constructor</span>(game) {
+        <span class="this-keyword">this</span>.game = game;
+        <span class="this-keyword">this</span>.battleSpeed = <span class="number">1</span>;
+        <span class="this-keyword">this</span>.isBattleActive = <span class="keyword">false</span>;
+        <span class="this-keyword">this</span>.battleLog = [];
+    }
+
+    <span class="keyword">async</span> <span class="method-name">startBattle</span>() {
+        <span class="this-keyword">this</span>.isBattleActive = <span class="keyword">true</span>;
+        <span class="this-keyword">this</span>.<span class="method-name">showBattleScene</span>();
+        
+        <span class="keyword">while</span> (<span class="this-keyword">this</span>.<span class="method-name">isBattleActive</span>) {
+            <span class="keyword">await</span> <span class="this-keyword">this</span>.<span class="method-name">executeBattleRound</span>();
+            <span class="keyword">if</span> (<span class="this-keyword">this</span>.<span class="method-name">checkBattleEnd</span>()) {
+                <span class="this-keyword">this</span>.isBattleActive = <span class="keyword">false</span>;
+            }
+        }
+        
+        <span class="this-keyword">this</span>.<span class="method-name">endBattle</span>();
+    }
+
+    <span class="keyword">async</span> <span class="method-name">executeBattleRound</span>() {
+        <span class="comment">// 获取所有存活单位并按速度排序</span>
+        <span class="keyword">const</span> units = [...<span class="this-keyword">this</span>.game.playerUnits, 
+                          ...<span class="this-keyword">this</span>.game.enemyUnits]
+            .filter(<span class="arrow-function">u</span> => u.hp > <span class="number">0</span>)
+            .sort(<span class="arrow-function">(a, b)</span> => b.speed - a.speed);
+
+        <span class="keyword">for</span> (<span class="keyword">const</span> unit <span class="keyword">of</span> units) {
+            <span class="keyword">if</span> (<span class="keyword">!</span><span class="this-keyword">this</span>.isBattleActive) <span class="keyword">break</span>;
+            
+            <span class="keyword">await</span> <span class="this-keyword">this</span>.<span class="method-name">processUnitTurn</span>(unit);
+            <span class="keyword">await</span> <span class="this-keyword">this</span>.<span class="method-name">delay</span>(<span class="number">600</span> / <span class="this-keyword">this</span>.battleSpeed);
+        }
+    }
+
+    <span class="method-name">processUnitTurn</span>(<span class="parameter">unit</span>) {
+        <span class="comment">// 优先释放技能</span>
+        <span class="keyword">if</span> (unit.canUseSkill()) {
+            <span class="this-keyword">this</span>.<span class="method-name">executeSkill</span>(unit);
+        } <span class="keyword">else</span> {
+            <span class="comment">// 普通攻击</span>
+            <span class="keyword">const</span> target = <span class="this-keyword">this</span>.<span class="method-name">findTarget</span>(unit);
+            <span class="keyword">if</span> (target) {
+                <span class="this-keyword">this</span>.<span class="method-name">executeAttack</span>(unit, target);
+            }
+        }
+    }
+
+    <span class="method-name">calculateDamage</span>(<span class="parameter">attacker, defender</span>) {
+        <span class="keyword">let</span> damage = attacker.atk;
+        
+        <span class="comment">// 护甲减伤计算</span>
+        damage *= (<span class="number">100</span> / (<span class="number">100</span> + defender.def));
+        
+        <span class="comment">// 暴击判定</span>
+        <span class="keyword">if</span> (<span class="math-random">Math.random</span>() < attacker.critRate) {
+            damage *= <span class="number">1.5</span>;
+        }
+        
+        <span class="keyword">return</span> <span class="math-floor">Math.floor</span>(damage);
+    }
+
+    <span class="method-name">delay</span>(<span class="parameter">ms</span>) {
+        <span class="keyword">return</span> <span class="keyword">new</span> <span class="class-name">Promise</span>(<span class="arrow-function">resolve</span> => {
+            <span class="set-timeout">setTimeout</span>(resolve, ms);
+        });
+    }
+}</code></pre>
+            </div>
+
+            <div class="code-analysis">
+                <h3>⚔️ 战斗机制解析</h3>
+                <div class="analysis-grid">
+                    <div class="analysis-card">
+                        <h4>异步战斗</h4>
+                        <p>使用async/await实现回合制战斗时序控制，每个单位行动后等待动画完成再继续。</p>
+                    </div>
+                    <div class="analysis-card">
+                        <h4>速度排序</h4>
+                        <p>单位按速度属性排序执行，速度快的单位优先行动，增加策略深度。</p>
+                    </div>
+                    <div class="analysis-card">
+                        <h4>伤害公式</h4>
+                        <p>护甲减伤 + 暴击系统，伤害计算考虑多种因素，战斗更具策略性。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="chess-code" class="code-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">棋子系统</span>
+                <h2 class="section-title">棋子与技能</h2>
+                <p class="section-description">chess.js - 棋子属性与技能实现</p>
+            </div>
+
+            <div class="code-showcase">
+                <div class="code-header">
+                    <div class="header-left">
+                        <span class="code-lang">JavaScript</span>
+                        <span class="code-file">js/chess.js</span>
+                    </div>
+                    <button class="copy-btn" data-target="chess-code-block">复制代码</button>
+                </div>
+                <pre id="chess-code-block"><code><span class="keyword">class</span> <span class="class-name">ChessUnit</span> {
+    <span class="keyword">constructor</span>(<span class="parameter">config</span>) {
+        <span class="this-keyword">this</span>.id = config.id;
+        <span class="this-keyword">this</span>.name = config.name;
+        <span class="this-keyword">this</span>.element = config.element;
+        <span class="this-keyword">this</span>.rarity = config.rarity;
+        
+        <span class="comment">// 基础属性</span>
+        <span class="this-keyword">this</span>.baseHp = config.hp;
+        <span class="this-keyword">this</span>.baseAtk = config.atk;
+        <span class="this-keyword">this</span>.baseDef = config.def;
+        <span class="this-keyword">this</span>.speed = config.speed || <span class="number">100</span>;
+        
+        <span class="comment">// 当前属性（受星级影响）</span>
+        <span class="this-keyword">this</span>.stars = config.stars || <span class="number">1</span>;
+        <span class="this-keyword">this</span>.<span class="method-name">recalculateStats</span>();
+        
+        <span class="comment">// 技能系统</span>
+        <span class="this-keyword">this</span>.skill = <span class="keyword">new</span> <span class="class-name">Skill</span>(config.skill);
+        <span class="this-keyword">this</span>.skillCooldown = <span class="number">0</span>;
+    }
+
+    <span class="method-name">recalculateStats</span>() {
+        <span class="comment">// 星级提升属性倍率</span>
+        <span class="keyword">const</span> multiplier = <span class="number">1</span> + (<span class="this-keyword">this</span>.stars - <span class="number">1</span>) * <span class="number">0.5</span>;
+        <span class="this-keyword">this</span>.hp = <span class="math-floor">Math.floor</span>(<span class="this-keyword">this</span>.baseHp * multiplier);
+        <span class="this-keyword">this</span>.maxHp = <span class="this-keyword">this</span>.hp;
+        <span class="this-keyword">this</span>.atk = <span class="math-floor">Math.floor</span>(<span class="this-keyword">this</span>.baseAtk * multiplier);
+        <span class="this-keyword">this</span>.def = <span class="math-floor">Math.floor</span>(<span class="this-keyword">this</span>.baseDef * multiplier);
+    }
+
+    <span class="method-name">takeDamage</span>(<span class="parameter">amount</span>) {
+        <span class="this-keyword">this</span>.hp = <span class="math-max">Math.max</span>(<span class="number">0</span>, <span class="this-keyword">this</span>.hp - amount);
+        
+        <span class="keyword">if</span> (<span class="this-keyword">this</span>.hp <= <span class="number">0</span>) {
+            <span class="this-keyword">this</span>.<span class="method-name">onDeath</span>();
+        }
+    }
+
+    <span class="method-name">canUseSkill</span>() {
+        <span class="keyword">return</span> <span class="this-keyword">this</span>.skillCooldown <= <span class="number">0</span> && 
+               <span class="this-keyword">this</span>.hp < <span class="this-keyword">this</span>.maxHp * <span class="number">0.7</span>;
+    }
+
+    <span class="method-name">useSkill</span>(<span class="parameter">targets</span>) {
+        <span class="this-keyword">this</span>.skillCooldown = <span class="this-keyword">this</span>.skill.cooldown;
+        <span class="keyword">return</span> <span class="this-keyword">this</span>.skill.<span class="method-name">execute</span>(<span class="this-keyword">this</span>, targets);
+    }
+
+    <span class="method-name">canMerge</span>(<span class="parameter">other</span>) {
+        <span class="keyword">return</span> <span class="this-keyword">this</span>.name === other.name && 
+               <span class="this-keyword">this</span>.stars === other.stars && 
+               <span class="this-keyword">this</span>.stars < <span class="number">3</span>;
+    }
+
+    <span class="method-name">merge</span>(<span class="parameter">other</span>) {
+        <span class="keyword">if</span> (<span class="this-keyword">this</span>.<span class="method-name">canMerge</span>(other)) {
+            <span class="this-keyword">this</span>.stars++;
+            <span class="this-keyword">this</span>.<span class="method-name">recalculateStats</span>();
+            <span class="keyword">return</span> <span class="keyword">true</span>;
+        }
+        <span class="keyword">return</span> <span class="keyword">false</span>;
+    }
+}</code></pre>
+            </div>
+
+            <div class="code-analysis">
+                <h3>♟️ 棋子系统设计</h3>
+                <div class="analysis-grid">
+                    <div class="analysis-card">
+                        <h4>属性系统</h4>
+                        <p>基础属性与当前属性分离，星级提升时重新计算，便于数值平衡和扩展。</p>
+                    </div>
+                    <div class="analysis-card">
+                        <h4>技能触发</h4>
+                        <p>基于血量阈值的智能技能释放，低血量时自动使用技能，增加战斗策略性。</p>
+                    </div>
+                    <div class="analysis-card">
+                        <h4>合成机制</h4>
+                        <p>同名同星级棋子可合成，最高3星，属性线性增长，形成收集策略。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu-code" class="code-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">界面系统</span>
+                <h2 class="section-title">UI管理</h2>
+                <p class="section-description">menu.js - 菜单与界面管理</p>
+            </div>
+
+            <div class="code-showcase">
+                <div class="code-header">
+                    <div class="header-left">
+                        <span class="code-lang">JavaScript</span>
+                        <span class="code-file">js/menu.js</span>
+                    </div>
+                    <button class="copy-btn" data-target="menu-code-block">复制代码</button>
+                </div>
+                <pre id="menu-code-block"><code><span class="keyword">class</span> <span class="class-name">MenuSystem</span> {
+    <span class="keyword">constructor</span>() {
+        <span class="this-keyword">this</span>.overlays = {
+            settings: <span class="document-query">document</span>.<span class="method-name">getElementById</span>(<span class="string">'settings-overlay'</span>),
+            tutorial: <span class="document-query">document</span>.<span class="method-name">getElementById</span>(<span class="string">'tutorial-overlay'</span>),
+            announcement: <span class="document-query">document</span>.<span class="method-name">getElementById</span>(<span class="string">'announcement-overlay'</span>),
+            gameOver: <span class="document-query">document</span>.<span class="method-name">getElementById</span>(<span class="string">'game-over'</span>)
+        };
+        
+        <span class="this-keyword">this</span>.gameContainer = <span class="document-query">document</span>.<span class="method-name">getElementById</span>(<span class="string">'game-container'</span>);
+        
+        <span class="this-keyword">this</span>.<span class="method-name">bindEvents</span>();
+    }
+
+    <span class="method-name">bindEvents</span>() {
+        <span class="comment">// 设置界面</span>
+        <span class="document-query">document</span>.<span class="method-name">getElementById</span>(<span class="string">'close-settings'</span>)
+            .addEventListener(<span class="string">'click'</span>, <span class="this-keyword">this</span>.<span class="method-name">closeSettings</span>.bind(<span class="this-keyword">this</span>));
+        
+        <span class="comment">// 教程界面</span>
+        <span class="document-query">document</span>.<span class="method-name">getElementById</span>(<span class="string">'tutorial-next'</span>)
+            .addEventListener(<span class="string">'click'</span>, <span class="this-keyword">this</span>.<span class="method-name">nextTutorial</span>.bind(<span class="this-keyword">this</span>));
+    }
+
+    <span class="method-name">showOverlay</span>(<span class="parameter">overlayName</span>) {
+        <span class="keyword">if</span> (<span class="this-keyword">this</span>.overlays[overlayName]) {
+            <span class="this-keyword">this</span>.overlays[overlayName].classList.remove(<span class="string">'hidden'</span>);
+            <span class="document-query">document</span>.body.style.overflow = <span class="string">'hidden'</span>;
+        }
+    }
+
+    <span class="method-name">hideOverlay</span>(<span class="parameter">overlayName</span>) {
+        <span class="keyword">if</span> (<span class="this-keyword">this</span>.overlays[overlayName]) {
+            <span class="this-keyword">this</span>.overlays[overlayName].classList.add(<span class="string">'hidden'</span>);
+            <span class="document-query">document</span>.body.style.overflow = <span class="string">'auto'</span>;
+        }
+    }
+
+    <span class="method-name">showGame</span>() {
+        <span class="this-keyword">this</span>.gameContainer.classList.remove(<span class="string">'hidden'</span>);
+        <span class="document-query">document</span>.<span class="method-name">getElementById</span>(<span class="string">'start-menu'</span>).classList.add(<span class="string">'hidden'</span>);
+    }
+
+    <span class="method-name">showStartMenu</span>() {
+        <span class="this-keyword">this</span>.gameContainer.classList.add(<span class="string">'hidden'</span>);
+        <span class="document-query">document</span>.<span class="method-name">getElementById</span>(<span class="string">'start-menu'</span>).classList.remove(<span class="string">'hidden'</span>);
+    }
+
+    <span class="method-name">updateStats</span>(<span class="parameter">stats</span>) {
+        <span class="keyword">if</span> (stats.gold !== <span class="undefined">undefined</span>) {
+            <span class="document-query">document</span>.<span class="method-name">getElementById</span>(<span class="string">'gold'</span>).textContent = stats.gold;
+        }
+        <span class="keyword">if</span> (stats.round !== <span class="undefined">undefined</span>) {
+            <span class="document-query">document</span>.<span class="method-name">getElementById</span>(<span class="string">'round'</span>).textContent = stats.round;
+        }
+        <span class="keyword">if</span> (stats.campLevel !== <span class="undefined">undefined</span>) {
+            <span class="document-query">document</span>.<span class="method-name">getElementById</span>(<span class="string">'camp-level'</span>).textContent = stats.campLevel;
+        }
+    }
+}</code></pre>
+            </div>
+
+            <div class="code-analysis">
+                <h3>🎨 UI架构设计</h3>
+                <div class="analysis-grid">
+                    <div class="analysis-card">
+                        <h4>状态管理</h4>
+                        <p>集中式UI状态管理，通过单一MenuSystem控制所有界面切换，避免状态混乱。</p>
+                    </div>
+                    <div class="analysis-card">
+                        <h4>事件委托</h4>
+                        <p>统一的事件绑定机制，便于维护和测试，支持动态内容更新。</p>
+                    </div>
+                    <div class="analysis-card">
+                        <h4>状态同步</h4>
+                        <p>updateStats方法支持部分更新，只更新变化的数据，提升性能。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="code-summary">
+        <div class="container">
+            <div class="summary-header">
+                <h2>📚 代码架构总结</h2>
+            </div>
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>模块划分</h3>
+                    <ul>
+                        <li><strong>game.js</strong> - 游戏核心逻辑</li>
+                        <li><strong>battle.js</strong> - 战斗系统</li>
+                        <li><strong>chess.js</strong> - 棋子与技能</li>
+                        <li><strong>menu.js</strong> - UI管理</li>
+                        <li><strong>tutorial.js</strong> - 新手教程</li>
+                        <li><strong>diagnostics.js</strong> - 调试工具</li>
+                    </ul>
+                </div>
+                <div class="summary-card">
+                    <h3>设计模式</h3>
+                    <ul>
+                        <li>👑 <strong>单例模式</strong> - 全局状态管理</li>
+                        <li>📡 <strong>观察者模式</strong> - 事件驱动通信</li>
+                        <li>🎯 <strong>策略模式</strong> - 可替换的算法</li>
+                        <li>🏗️ <strong>组合模式</strong> - 棋子层级结构</li>
+                    </ul>
+                </div>
+                <div class="summary-card">
+                    <h3>技术亮点</h3>
+                    <ul>
+                        <li>⚡ ES6+ 现代语法</li>
+                        <li>🔄 异步战斗时序</li>
+                        <li>🎨 CSS动画效果</li>
+                        <li>📱 响应式设计</li>
+                        <li>♿ 无障碍支持</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="brand-icon">💻</span>
+                    <span class="brand-text">代码展示</span>
+                </div>
+                <p class="footer-text">探索游戏开发的技术细节</p>
+                <div class="footer-links">
+                    <a href="index.html" class="footer-link">返回首页</a>
+                    <span class="footer-divider">•</span>
+                    <a href="../index.html" class="footer-link">体验游戏</a>
+                </div>
+                <p class="footer-copyright">© 2026 东兴工作室</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 汉堡菜单切换
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', () => {
+                navToggle.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+        }
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const targetId = this.dataset.target;
+                const codeBlock = document.getElementById(targetId);
+                if (codeBlock) {
+                    navigator.clipboard.writeText(codeBlock.textContent).then(() => {
+                        const originalText = this.textContent;
+                        this.textContent = '已复制!';
+                        setTimeout(() => {
+                            this.textContent = originalText;
+                        }, 2000);
+                    });
+                }
+            });
+        });
+        
+        // 响应式处理
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 968) {
+                navToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

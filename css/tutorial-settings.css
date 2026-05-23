@@ -1,0 +1,564 @@
+/**
+ * 教程与设置样式
+ * 联合演习 - 回合制自走棋
+ * 
+ * 包含教程界面、设置界面、开发者模式等相关样式
+ */
+
+/* ==================== 教程界面样式 ==================== */
+
+#tutorial-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1500;
+    backdrop-filter: blur(5px);
+}
+
+#tutorial-overlay.hidden {
+    display: none;
+}
+
+#tutorial-container {
+    background: #2d3748;
+    border-radius: 15px;
+    padding: 30px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(72, 187, 120, 0.3);
+    animation: tutorialPopIn 0.4s ease-out;
+}
+
+@keyframes tutorialPopIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.tutorial-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(72, 187, 120, 0.3);
+}
+
+.tutorial-header h2 {
+    color: #f6e05e;
+    font-size: 1.8rem;
+}
+
+.tutorial-progress {
+    color: #a0aec0;
+    font-size: 1rem;
+}
+
+.tutorial-content {
+    position: relative;
+}
+
+.tutorial-step {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.step-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    animation: iconBounce 1s ease-in-out infinite;
+}
+
+@keyframes iconBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.tutorial-step h3 {
+    color: #48bb78;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.tutorial-step p {
+    color: #cbd5e0;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.tutorial-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 2px solid rgba(72, 187, 120, 0.3);
+}
+
+.tutorial-btn {
+    padding: 12px 30px;
+    background: rgba(72, 187, 120, 0.2);
+    border: 2px solid #48bb78;
+    border-radius: 8px;
+    color: #e2e8f0;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tutorial-btn:hover:not(:disabled) {
+    background: #48bb78;
+    color: #1a202c;
+}
+
+.tutorial-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.tutorial-btn.skip-btn {
+    background: rgba(237, 137, 54, 0.2);
+    border-color: #ed8936;
+}
+
+.tutorial-btn.skip-btn:hover {
+    background: #ed8936;
+    color: #1a202c;
+}
+
+/* ==================== 设置界面样式 ==================== */
+
+#settings-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1500;
+    backdrop-filter: blur(5px);
+}
+
+#settings-overlay.hidden {
+    display: none;
+}
+
+#settings-container {
+    background: #2d3748;
+    border-radius: 15px;
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(72, 187, 120, 0.3);
+    animation: tutorialPopIn 0.4s ease-out;
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(72, 187, 120, 0.3);
+}
+
+.settings-header h2 {
+    color: #f6e05e;
+    font-size: 1.8rem;
+}
+
+.close-btn {
+    background: rgba(237, 137, 54, 0.2);
+    border: none;
+    color: #e2e8f0;
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    background: #ed8936;
+    transform: rotate(90deg);
+}
+
+.settings-content {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.setting-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.setting-group label {
+    color: #cbd5e0;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.setting-slider {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.setting-slider span {
+    color: #a0aec0;
+    font-size: 0.9rem;
+}
+
+.setting-slider input[type="range"] {
+    flex: 1;
+    -webkit-appearance: none;
+    height: 8px;
+    background: #4a5568;
+    border-radius: 4px;
+    outline: none;
+}
+
+.setting-slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #48bb78;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.setting-slider input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 10px rgba(72, 187, 120, 0.5);
+}
+
+.setting-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.speed-btn, .contrast-btn, .difficulty-btn {
+    flex: 1;
+    padding: 10px 20px;
+    background: rgba(45, 55, 72, 0.8);
+    border: 2px solid rgba(72, 187, 120, 0.3);
+    border-radius: 8px;
+    color: #e2e8f0;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.speed-btn:hover, .contrast-btn:hover, .difficulty-btn:hover {
+    border-color: #48bb78;
+}
+
+.speed-btn.active, .contrast-btn.active, .difficulty-btn.active {
+    background: rgba(72, 187, 120, 0.3);
+    border-color: #48bb78;
+}
+
+/* ==================== 开发者模式样式 ==================== */
+
+.developer-unlock {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.developer-unlock input {
+    flex: 1;
+    padding: 10px 12px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(72, 187, 120, 0.3);
+    border-radius: 6px;
+    color: #e2e8f0;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.developer-unlock input:focus {
+    border-color: #48bb78;
+    box-shadow: 0 0 10px rgba(72, 187, 120, 0.3);
+}
+
+.unlock-btn {
+    padding: 10px 16px;
+    background: rgba(72, 187, 120, 0.2);
+    border: 2px solid #48bb78;
+    border-radius: 6px;
+    color: #48bb78;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.unlock-btn:hover {
+    background: #48bb78;
+    color: #1a202c;
+}
+
+.developer-btn {
+    padding: 10px 16px;
+    background: rgba(237, 137, 54, 0.2);
+    border: 2px solid #ed8936;
+    border-radius: 6px;
+    color: #ed8936;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.developer-btn:hover {
+    background: #ed8936;
+    color: #1a202c;
+}
+
+#developer-mode-section {
+    background: rgba(237, 137, 54, 0.1);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(237, 137, 54, 0.3);
+}
+
+#developer-mode-section label {
+    color: #ed8936 !important;
+}
+
+.developer-panel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+    backdrop-filter: blur(8px);
+}
+
+.developer-panel {
+    background: linear-gradient(145deg, #2d3748 0%, #1a202c 100%);
+    border-radius: 16px;
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(237, 137, 54, 0.2);
+    border: 3px solid rgba(237, 137, 54, 0.5);
+    animation: devPanelSlide 0.4s ease-out;
+}
+
+.developer-panel::-webkit-scrollbar {
+    width: 8px;
+}
+
+.developer-panel::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.developer-panel::-webkit-scrollbar-thumb {
+    background: rgba(237, 137, 54, 0.5);
+    border-radius: 4px;
+}
+
+.developer-panel::-webkit-scrollbar-thumb:hover {
+    background: rgba(237, 137, 54, 0.7);
+}
+
+@keyframes devPanelSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.developer-panel h3 {
+    text-align: center;
+    color: #ed8936;
+    font-size: 22px;
+    margin-bottom: 25px;
+    text-shadow: 0 0 20px rgba(237, 137, 54, 0.5);
+}
+
+.dev-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dev-section h4 {
+    color: #a0aec0;
+    font-size: 14px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dev-section h4::before {
+    content: '▸';
+    color: #ed8936;
+}
+
+.dev-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.dev-btn {
+    padding: 10px 16px;
+    background: rgba(72, 187, 120, 0.2);
+    border: 2px solid rgba(72, 187, 120, 0.5);
+    border-radius: 8px;
+    color: #48bb78;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dev-btn:hover {
+    background: #48bb78;
+    color: #1a202c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4);
+}
+
+.dev-btn.danger {
+    background: rgba(252, 129, 129, 0.2);
+    border-color: rgba(252, 129, 129, 0.5);
+    color: #fc8181;
+}
+
+.dev-btn.danger:hover {
+    background: #fc8181;
+    color: #1a202c;
+    box-shadow: 0 4px 15px rgba(252, 129, 129, 0.4);
+}
+
+.dev-btn.warning {
+    background: rgba(246, 224, 94, 0.2);
+    border-color: rgba(246, 224, 94, 0.5);
+    color: #f6e05e;
+}
+
+.dev-btn.warning:hover {
+    background: #f6e05e;
+    color: #1a202c;
+    box-shadow: 0 4px 15px rgba(246, 224, 94, 0.4);
+}
+
+.dev-btn.info {
+    background: rgba(66, 153, 225, 0.2);
+    border-color: rgba(66, 153, 225, 0.5);
+    color: #4299e1;
+}
+
+.dev-btn.info:hover {
+    background: #4299e1;
+    color: white;
+    box-shadow: 0 4px 15px rgba(66, 153, 225, 0.4);
+}
+
+.dev-input-group {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.dev-input {
+    flex: 1;
+    padding: 10px 12px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: #e2e8f0;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.dev-input:focus {
+    border-color: #48bb78;
+}
+
+.dev-close-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background: rgba(113, 128, 150, 0.3);
+    border: 2px solid #718096;
+    border-radius: 8px;
+    color: #a0aec0;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dev-close-btn:hover {
+    background: #718096;
+    color: white;
+}
+
+/* ==================== 其他相关样式 ==================== */
+
+.dev-top-btn {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(237, 137, 54, 0.4);
+}
+
+.dev-top-btn:hover {
+    background: linear-gradient(135deg, #dd6b20 0%, #c05621 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(237, 137, 54, 0.6);
+}

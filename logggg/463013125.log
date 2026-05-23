@@ -1,0 +1,27 @@
+diagnostics.js:732 🎮 诊断工具已加载!
+diagnostics.js:733 可用命令:
+diagnostics.js:734   runBattleDiagnostics()  - 运行完整系统诊断
+diagnostics.js:735   testMerge()            - 测试棋子合成功能
+diagnostics.js:736   testBattleAnimations() - 测试战斗动画效果
+diagnostics.js:737   testSpeedControl()     - 测试战斗速度按钮
+diagnostics.js:738   testSettings()         - 测试设置界面功能
+index.html:892 Uncaught SyntaxError: Unexpected token ','
+menu.js:20 MenuSystem: 开始初始化...
+menu.js:21 MenuSystem: 检查 DOM 元素...
+menu.js:50 MenuSystem: 绑定按钮事件...
+menu.js:53 MenuSystem: 找到 4 个菜单按钮
+menu.js:62 MenuSystem: 绑定按钮 0: action=start
+menu.js:62 MenuSystem: 绑定按钮 1: action=log
+menu.js:62 MenuSystem: 绑定按钮 2: action=tutorial
+menu.js:62 MenuSystem: 绑定按钮 3: action=settings
+menu.js:108 MenuSystem: 绑定设置界面事件...
+menu.js:177 MenuSystem: 设置界面事件绑定完成
+menu.js:104 MenuSystem: 按钮事件绑定完成
+menu.js:346 MenuSystem: 绑定开发者模式事件...
+menu.js:379 MenuSystem: 开发者模式事件绑定完成
+menu.js:618 MenuSystem: 初始化公告系统...
+menu.js:859 MenuSystem: 公告事件绑定完成
+menu.js:831 MenuSystem: 公告系统初始化完成
+menu.js:42 MenuSystem: 初始化完成
+index.html:520 所有系统初始化完成
+index.html:537 战斗场景系统已初始化

@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    <title>联合演习 - 自走棋</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/tutorial-settings.css">
+    <link rel="stylesheet" href="css/game-ui.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/battle-old.css">
+    <link rel="stylesheet" href="css/effects.css">
+    <link rel="stylesheet" href="css/codex.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/notification.css">
+    <link rel="stylesheet" href="css/battle-scene.css">
+    <link rel="stylesheet" href="css/boss.css">
+    <link rel="stylesheet" href="css/faction.css">
+</head>
+<body>
+    <!-- 游戏开始菜单 -->
+    <div id="start-menu">
+        <div class="menu-background"></div>
+        <div class="menu-content">
+            <div class="game-logo">
+                <h1 class="logo-title">联合演习</h1>
+                <p class="logo-subtitle">回合制自走棋</p>
+            </div>
+
+            <nav class="menu-nav">
+                <button class="menu-btn active" data-action="start">
+                    <span class="btn-icon">🎮</span>
+                    <span class="btn-text">开始游戏</span>
+                </button>
+                <button class="menu-btn" data-action="log">
+                    <span class="btn-icon">📜</span>
+                    <span class="btn-text">更新日志</span>
+                </button>
+                <button class="menu-btn" data-action="tutorial">
+                    <span class="btn-icon">📖</span>
+                    <span class="btn-text">新手教程</span>
+                </button>
+                <button class="menu-btn" data-action="settings">
+                    <span class="btn-icon">⚙️</span>
+                    <span class="btn-text">游戏设置</span>
+                </button>
+            </nav>
+
+            <div class="menu-footer">
+                <p class="version-text">版本 2026V1.3.3</p>
+                <p class="copyright-text">© 2026 东兴工作室</p>
+                <p class="qq-group-text">欢迎加入群聊提供你的意见：QQ1102764426</p>
+            </div>
+        </div>
+        
+        <!-- 圆形图鉴按钮（右下角） -->
+        <button id="codex-btn" class="codex-btn" title="角色图鉴">
+            📚
+        </button>
+    </div>
+
+    <!-- 角色图鉴界面 -->
+    <div id="codex-overlay" class="hidden">
+        <div id="codex-container">
+            <div class="codex-header">
+                <h2>📚 角色图鉴</h2>
+                <button id="codex-close" class="codex-close-btn">✕</button>
+            </div>
+            
+            <div class="codex-search-container">
+                <input type="text" id="codex-search" class="codex-search-input" placeholder="搜索角色名称...">
+            </div>
+            <div class="codex-filters">
+                <button class="filter-btn active" data-camp="all">全部</button>
+                <button class="filter-btn" data-camp="十班">十班</button>
+                <button class="filter-btn" data-camp="一班">一班</button>
+                <button class="filter-btn" data-camp="二班">二班</button>
+                <button class="filter-btn" data-camp="三班">三班</button>
+                <button class="filter-btn" data-camp="四班">四班</button>
+                <button class="filter-btn" data-camp="五班">五班</button>
+                <button class="filter-btn" data-camp="六班">六班</button>
+            </div>
+            
+            <div id="codex-grid" class="codex-grid">
+                <!-- 角色卡片将在这里动态生成 -->
+            </div>
+            
+            <!-- 角色详情弹窗 -->
+            <div id="codex-detail" class="codex-detail hidden">
+                <div class="codex-detail-content">
+                    <div class="codex-detail-header">
+                        <div class="detail-avatar-container">
+                            <img id="detail-avatar" src="" alt="角色头像" class="detail-avatar">
+                        </div>
+                        <div class="detail-info">
+                            <h3 id="detail-name">角色名称</h3>
+                            <div id="detail-stars" class="detail-stars">⭐</div>
+                            <div id="detail-camp" class="detail-camp">阵营</div>
+                        </div>
+                        <button id="detail-close" class="detail-close-btn">✕</button>
+                    </div>
+                    <div class="codex-detail-body">
+                        <div class="detail-stats">
+                            <div class="stat-item hp">
+                                <span class="stat-icon">❤️</span>
+                                <span class="stat-label">生命</span>
+                                <span id="detail-hp" class="stat-value">100</span>
+                            </div>
+                            <div class="stat-item atk">
+                                <span class="stat-icon">⚔️</span>
+                                <span class="stat-label">攻击</span>
+                                <span id="detail-atk" class="stat-value">20</span>
+                            </div>
+                        </div>
+                        <div class="detail-factions">
+                            <div class="factions-header">
+                                <span class="factions-icon">🏷️</span>
+                                <span class="factions-title">所属阵营</span>
+                            </div>
+                            <div id="detail-factions" class="factions-list">
+                                <!-- 阵营列表将在这里动态生成 -->
+                            </div>
+                        </div>
+                        <div class="detail-skill">
+                            <div class="skill-header">
+                                <span class="skill-icon">✨</span>
+                                <span id="detail-skill-name" class="skill-name">技能名称</span>
+                            </div>
+                            <p id="detail-skill-desc" class="skill-desc">技能描述</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 更新公告弹窗 -->
+    <div id="announcement-overlay" class="hidden">
+        <div class="announcement-dialog">
+            <div class="announcement-header">
+                <h3>🎉 更新公告</h3>
+                <button id="close-announcement" class="announcement-close">×</button>
+            </div>
+            <div id="announcement-content" class="announcement-content"></div>
+            <div class="announcement-footer">
+                <label>
+                    <input type="checkbox" id="dont-show-again">
+                    本次登录不再显示
+                </label>
+                <button id="confirm-announcement" class="confirm-btn">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 新手教程界面 -->
+    <div id="tutorial-overlay" class="hidden">
+        <div id="tutorial-container">
+            <div class="tutorial-header">
+                <h2 id="tutorial-title">新手教程</h2>
+                <div class="tutorial-progress">
+                    <span id="step-indicator">步骤 1/6</span>
+                </div>
+            </div>
+
+            <div class="tutorial-content">
+                <div id="tutorial-step" class="tutorial-step">
+                    <div id="tutorial-icon" class="step-icon">🎯</div>
+                    <h3 id="step-title">欢迎来到联合演习!</h3>
+                    <p id="step-description">这是一款回合制自走棋游戏，您需要通过招募棋子、升级营帐、排兵布阵来战胜敌人。</p>
+                </div>
+
+                <div id="tutorial-highlight" class="tutorial-highlight hidden"></div>
+            </div>
+
+            <div class="tutorial-controls">
+                <button id="tutorial-prev" class="tutorial-btn">上一步</button>
+                <button id="tutorial-next" class="tutorial-btn">下一步</button>
+                <button id="tutorial-skip" class="tutorial-btn skip-btn">跳过教程</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 横屏提示界面 -->
+    <div id="landscape-warning" class="hidden">
+        <div class="landscape-content">
+            <div class="rotate-icon">📱</div>
+            <h2>请旋转设备</h2>
+            <p>请将设备横向放置以获得最佳游戏体验</p>
+            <div class="rotate-hint">↻</div>
+        </div>
+    </div>
+
+    <!-- 设置界面 -->
+    <div id="settings-overlay" class="hidden">
+        <div id="settings-container">
+            <div class="settings-header">
+                <h2>游戏设置</h2>
+                <button id="close-settings" class="close-btn">✕</button>
+            </div>
+
+            <div class="settings-content">
+                <div class="setting-group">
+                    <label>文本大小</label>
+                    <div class="setting-slider">
+                        <span>小</span>
+                        <input type="range" id="text-size" min="12" max="20" value="14">
+                        <span>大</span>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label>战斗速度</label>
+                    <div class="setting-buttons">
+                        <button class="speed-btn active" data-speed="1">1x</button>
+                        <button class="speed-btn" data-speed="1.5">1.5x</button>
+                        <button class="speed-btn" data-speed="2">2x</button>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label>颜色对比度</label>
+                    <div class="setting-buttons">
+                        <button class="contrast-btn active" data-contrast="normal">正常</button>
+                        <button class="contrast-btn" data-contrast="high">高对比度</button>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label>教程难度</label>
+                    <div class="setting-buttons">
+                        <button class="difficulty-btn active" data-difficulty="easy">简单</button>
+                        <button class="difficulty-btn" data-difficulty="normal">普通</button>
+                    </div>
+                </div>
+
+                <div class="setting-group" id="developer-mode-section" style="display: none;">
+                    <label>开发者模式</label>
+                    <div class="setting-buttons">
+                        <button id="open-developer-panel" class="developer-btn">🔧 开发者面板</button>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label>解锁开发者模式</label>
+                    <div class="developer-unlock">
+                        <input type="password" id="dev-password" placeholder="输入密码" maxlength="10">
+                        <button id="unlock-dev-mode" class="unlock-btn">解锁</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 游戏主界面 -->
+    <div id="game-container" class="hidden">
+        <!-- 顶部信息栏 -->
+        <div id="top-bar">
+            <div class="info-item">
+                <span class="label">金币:</span>
+                <span id="gold" class="currency-value">10</span>
+            </div>
+            <div class="info-item">
+                <span class="label">回合:</span>
+                <span id="round">1</span>
+            </div>
+            <div class="info-item">
+                <span class="label">营帐等级:</span>
+                <span id="camp-level">1</span>
+            </div>
+            <div class="info-item">
+                <span class="label">英雄血量:</span>
+                <span id="hero-hp">30</span>
+            </div>
+            <div class="info-item currency-info">
+                <span class="label">货币:</span>
+                <span id="currency" class="currency-value">0</span>
+                <span class="currency-badge">回合收益: +1</span>
+            </div>
+            <button id="start-battle">开始战斗</button>
+            <button id="upgrade-camp">升级营帐</button>
+            <button id="dev-panel-btn" class="dev-top-btn" style="display: none;" onclick="window.menuSystem.showDeveloperPanel()">🔧 开发者</button>
+        </div>
+
+        <!-- 主游戏区 -->
+        <div id="main-area">
+            <!-- 左侧 - 战斗区域 -->
+            <div id="left-panel">
+                <!-- 敌方区域 -->
+                <div id="enemy-area">
+                    <div class="area-label">敌方阵地 <span id="enemy-name"></span></div>
+                    <div id="enemy-battlefield"></div>
+                </div>
+
+                <!-- 我方区域 -->
+                <div id="player-area">
+                    <div class="area-label">我方阵地</div>
+                    <div id="battlefield"></div>
+                </div>
+
+                <!-- 替补席 -->
+                <div id="bench-area">
+                    <div class="area-label">替补席</div>
+                    <div id="bench"></div>
+                </div>
+            </div>
+
+            <!-- 右侧 - 商店和英雄 -->
+            <div id="right-panel">
+                <!-- 商店 -->
+                <div id="shop">
+                    <div class="area-label">商店</div>
+                    <div id="shop-items"></div>
+                    <button id="refresh-shop">刷新商店</button>
+                </div>
+
+                <!-- 英雄区域 -->
+                <div id="hero-area">
+                    <div class="area-label">英雄</div>
+                    <div id="hero-card">
+                        <div id="hero-avatar"></div>
+                        <div class="hero-details">
+                            <div id="hero-name">选择英雄</div>
+                            <div id="hero-skill"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右侧面板补充 -->
+        <div id="sell-area">
+            <div class="area-label sell-label">🗑️ 售卖区域</div>
+            <div id="sell-zone" class="sell-zone">
+                <div class="sell-placeholder">拖拽角色到此处售卖</div>
+                <div class="sell-hint">售价: 1金币/个</div>
+            </div>
+        </div>
+
+        <!-- 底部控制栏 -->
+        <div id="bottom-bar">
+            <span>可合成:<span id="merge-count">0</span></span>
+            <button id="auto-merge">合成</button>
+        </div>
+
+        <!-- Boss 警告提示 -->
+        <div id="boss-warning" class="boss-warning hidden">
+            <div class="warning-content">
+                <span class="warning-icon">⚠️</span>
+                <span class="warning-text">距离Boss战还有 <span id="boss-rounds-left">0</span> 回合！</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Boss 介绍弹窗 -->
+    <div id="boss-intro-overlay" class="boss-intro-overlay hidden">
+        <div id="boss-intro-dialog" class="boss-intro-dialog">
+            <div class="boss-intro-header">
+                <h2 id="boss-intro-title">Boss 来袭！</h2>
+            </div>
+            <div class="boss-intro-content">
+                <div class="boss-icon-container">
+                    <span class="boss-icon">💀</span>
+                </div>
+                <h3 id="boss-name">暗影领主</h3>
+                <p id="boss-description">传说中的暗影领主，拥有强大的生命力和神秘的诅咒能力。</p>
+                <div class="boss-skills">
+                    <div class="boss-skill">
+                        <span class="skill-icon">💀</span>
+                        <div class="skill-info">
+                            <div class="skill-name">血之诅咒</div>
+                            <div class="skill-desc">每损失10%血量对敌方全体造成自身剩余血量1%的伤害</div>
+                        </div>
+                    </div>
+                    <div class="boss-skill">
+                        <span class="skill-icon">💫</span>
+                        <div class="skill-info">
+                            <div class="skill-name">回光返照</div>
+                            <div class="skill-desc">当血量低于50%时仅一次回满血但生命上限降低25%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="boss-intro-footer">
+                <button id="boss-intro-close" class="boss-intro-close-btn">准备迎战！</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 战斗界面 -->
+    <div id="battle-overlay" class="hidden">
+        <div id="battle-container">
+            <div id="battle-header">
+                <h3>⚔️ 战斗 ⚔️</h3>
+                <div id="battle-status" style="text-align:center;margin-bottom:10px;font-size:14px;"></div>
+                <div id="battle-speed-controls" style="text-align:center;margin-bottom:15px;">
+                    <span style="color:#a0aec0;font-size:13px;margin-right:10px;">战斗速度:</span>
+                    <button class="battle-speed-btn" data-speed="0.5">0.5x</button>
+                    <button class="battle-speed-btn active" data-speed="1">1x</button>
+                    <button class="battle-speed-btn" data-speed="1.5">1.5x</button>
+                    <button class="battle-speed-btn" data-speed="2">2x</button>
+                </div>
+            </div>
+
+            <div id="battle-field">
+                <div class="battle-side">
+                    <div class="side-label">敌方</div>
+                    <div id="enemy-units" class="units-row"></div>
+                </div>
+
+                <div class="battle-vs">VS</div>
+
+                <div class="battle-side">
+                    <div class="side-label">我方</div>
+                    <div id="player-units" class="units-row"></div>
+                </div>
+            </div>
+
+            <div id="battle-log">
+                <div id="battle-content"></div>
+            </div>
+
+            <button id="close-battle">关闭</button>
+        </div>
+    </div>
+
+    <!-- 全新战斗场景页面 -->
+    <div id="battle-scene-overlay" class="hidden">
+        <div id="battle-scene-container">
+            <!-- 顶部信息栏 -->
+            <div id="battle-scene-header">
+                <h2 id="battle-scene-title">⚔️ 战斗场景 ⚔️</h2>
+                <div id="battle-scene-status"></div>
+                <button id="exit-battle-scene" class="scene-btn">退出战斗</button>
+            </div>
+
+            <!-- 敌方区域（镜像布局：近VS有4个位置，远VS有3个位置） -->
+            <div id="enemy-battle-scene" class="battle-scene-area enemy-scene">
+                <div class="scene-side-label enemy-label">🔴 敌方阵地</div>
+                <div class="scene-battlefield">
+                    <!-- 敌方第一行：4个位置（镜像） -->
+                    <div class="scene-row first-row">
+                        <div class="scene-card-slot empty" data-side="enemy" data-row="1" data-slot="1"></div>
+                        <div class="scene-card-slot empty" data-side="enemy" data-row="1" data-slot="2"></div>
+                        <div class="scene-card-slot empty" data-side="enemy" data-row="1" data-slot="3"></div>
+                        <div class="scene-card-slot empty" data-side="enemy" data-row="1" data-slot="4"></div>
+                    </div>
+                    <!-- 敌方第二行：3个位置（镜像） -->
+                    <div class="scene-row second-row">
+                        <div class="scene-card-slot empty" data-side="enemy" data-row="2" data-slot="1"></div>
+                        <div class="scene-card-slot empty" data-side="enemy" data-row="2" data-slot="2"></div>
+                        <div class="scene-card-slot empty" data-side="enemy" data-row="2" data-slot="3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 战斗VS区域 -->
+            <div id="battle-scene-vs">
+                <div class="vs-divider"></div>
+                <div class="vs-text">⚔️ VS ⚔️</div>
+                <div class="vs-divider"></div>
+            </div>
+
+            <!-- 我方区域 -->
+            <div id="player-battle-scene" class="battle-scene-area player-scene">
+                <div class="scene-battlefield">
+                    <!-- 我方第一行：3个位置 -->
+                    <div class="scene-row first-row">
+                        <div class="scene-card-slot empty" data-side="player" data-row="1" data-slot="1"></div>
+                        <div class="scene-card-slot empty" data-side="player" data-row="1" data-slot="2"></div>
+                        <div class="scene-card-slot empty" data-side="player" data-row="1" data-slot="3"></div>
+                    </div>
+                    <!-- 我方第二行：4个位置 -->
+                    <div class="scene-row second-row">
+                        <div class="scene-card-slot empty" data-side="player" data-row="2" data-slot="1"></div>
+                        <div class="scene-card-slot empty" data-side="player" data-row="2" data-slot="2"></div>
+                        <div class="scene-card-slot empty" data-side="player" data-row="2" data-slot="3"></div>
+                        <div class="scene-card-slot empty" data-side="player" data-row="2" data-slot="4"></div>
+                    </div>
+                </div>
+                <div class="scene-side-label player-label">🟢 我方阵地</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 游戏结束界面 -->
+    <div id="game-over" class="hidden">
+        <div id="game-over-content">
+            <h2 id="game-result">游戏结束</h2>
+            <p id="final-stats"></p>
+            <button id="restart-game">重新开始</button>
+        </div>
+    </div>
+
+    <script src="js/skills.js"></script>
+    <script src="js/chess-data.js"></script>
+    <script src="js/faction-data.js"></script>
+    <script src="js/faction-system.js"></script>
+    <script src="js/hero-data.js"></script>
+    <script src="js/enemy-presets.js"></script>
+    <script src="js/boss-data.js"></script>
+    <script src="js/chess.js"></script>
+    <script src="js/boss.js"></script>
+    <script src="js/battle-logic.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/battle.js"></script>
+    <script src="js/tutorial.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/diagnostics.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            try {
+                window.tutorialSystem = new TutorialSystem();
+                window.menuSystem = new MenuSystem();
+                console.log('所有系统初始化完成');
+                
+                // 初始化战斗场景系统
+                window.battleSceneSystem = new BattleSceneSystem();
+            } catch (error) {
+                console.error('初始化错误:', error);
+            }
+        });
+        
+        // 战斗场景系统类
+        class BattleSceneSystem {
+            constructor() {
+                this.battleSceneOverlay = document.getElementById('battle-scene-overlay');
+                this.exitButton = document.getElementById('exit-battle-scene');
+                this.statusElement = document.getElementById('battle-scene-status');
+                
+                this.initEventListeners();
+                console.log('战斗场景系统已初始化');
+            }
+            
+            initEventListeners() {
+                if (this.exitButton) {
+                    this.exitButton.addEventListener('click', () => this.exitBattleScene());
+                }
+            }
+            
+            // 显示战斗场景
+            showBattleScene() {
+                if (this.battleSceneOverlay) {
+                    this.battleSceneOverlay.classList.remove('hidden');
+                    this.updateStatus('战斗即将开始...');
+
+                    // VS区域2秒后自动淡出消失
+                    const vsElement = document.getElementById('battle-scene-vs');
+                    if (vsElement) {
+                        vsElement.style.opacity = '1';
+                        vsElement.style.transition = 'opacity 0.8s ease';
+                        setTimeout(() => {
+                            vsElement.style.opacity = '0';
+                            setTimeout(() => {
+                                vsElement.style.display = 'none';
+                            }, 800);
+                        }, 2000);
+                    }
+                }
+            }
+            
+            // 退出战斗场景
+            exitBattleScene() {
+                if (this.battleSceneOverlay) {
+                    this.battleSceneOverlay.classList.add('hidden');
+                }
+            }
+            
+            // 更新状态信息
+            updateStatus(message) {
+                if (this.statusElement) {
+                    this.statusElement.textContent = message;
+                }
+            }
+            
+            // 放置角色到指定位置
+            placeCard(side, row, slot, cardData) {
+                const slotElement = document.querySelector(
+                    `.scene-card-slot[data-side="${side}"][data-row="${row}"][data-slot="${slot}"]`
+                );
+                
+                if (!slotElement) {
+                    console.error('找不到指定的卡槽:', side, row, slot);
+                    return false;
+                }
+                
+                // 清除空状态
+                slotElement.classList.remove('empty');
+                slotElement.classList.add(side === 'enemy' ? 'enemy-card' : 'player-card');
+                
+                // 设置棋子ID用于技能提示定位
+                if (cardData.id) {
+                    slotElement.setAttribute('data-chess-unit-id', cardData.id);
+                }
+                
+                // 设置位置信息用于技能提示
+                slotElement.setAttribute('data-side', side);
+                slotElement.setAttribute('data-row', row);
+                slotElement.setAttribute('data-slot', slot);
+                
+                const maxHp = cardData.maxHp || cardData.hp;
+                
+                // 创建卡牌内容
+                slotElement.innerHTML = `
+                    <img src="pic/1.jpeg" alt="${cardData.name}" class="card-image">
+                    <div class="card-name">${cardData.name}</div>
+                    <div class="hp-bar-container">
+                        <div class="hp-bar-bg">
+                            <div class="hp-bar-fill" style="width: 100%;"></div>
+                        </div>
+                        <div class="hp-bar-text">${cardData.hp}/${maxHp}</div>
+                    </div>
+                    <div class="card-stats">
+                        <span class="card-hp">❤️ ${cardData.hp}</span>
+                        <span class="card-atk">⚔️ ${cardData.atk}</span>
+                    </div>
+                    <div class="card-stars">${'⭐'.repeat(cardData.stars || 1)}</div>
+                    <!-- 伤害数字显示容器 -->
+                    <div class="damage-container"></div>
+                `;
+                
+                return true;
+            }
+            
+            // 放置多个角色（遵循优先级顺序）
+            placeCardsInOrder(side, cards) {
+                const placementOrder = [
+                    {row: 1, slot: 1},
+                    {row: 1, slot: 2},
+                    {row: 1, slot: 3},
+                    {row: 2, slot: 1},
+                    {row: 2, slot: 2},
+                    {row: 2, slot: 3},
+                    {row: 2, slot: 4}
+                ];
+                
+                cards.forEach((card, index) => {
+                    if (index < placementOrder.length) {
+                        const pos = placementOrder[index];
+                        setTimeout(() => {
+                            this.placeCard(side, pos.row, pos.slot, card);
+                        }, index * 300);
+                    }
+                });
+            }
+            
+            // 清空所有卡槽
+            clearAllSlots() {
+                const allSlots = document.querySelectorAll('.scene-card-slot');
+                allSlots.forEach(slot => {
+                    slot.classList.add('empty');
+                    slot.classList.remove('enemy-card', 'player-card', 'dead-unit');
+                    slot.innerHTML = '';
+                    slot.style.opacity = '';
+                });
+            }
+            
+            // 显示伤害数字
+            showDamageNumber(side, row, slot, damage) {
+                const slotElement = document.querySelector(
+                    `.scene-card-slot[data-side="${side}"][data-row="${row}"][data-slot="${slot}"]`
+                );
+                
+                if (!slotElement) {
+                    console.warn('找不到卡槽显示伤害:', side, row, slot);
+                    return;
+                }
+                
+                const damageContainer = slotElement.querySelector('.damage-container');
+                
+                if (!damageContainer) {
+                    console.warn('找不到伤害容器');
+                    return;
+                }
+                
+                // 创建伤害数字元素
+                const damageNum = document.createElement('div');
+                damageNum.className = 'damage-number';
+                damageNum.textContent = `-${damage}`;
+                
+                // 添加到容器中
+                damageContainer.appendChild(damageNum);
+                
+                // 动画结束后移除
+                setTimeout(() => {
+                    if (damageNum.parentNode === damageContainer) {
+                        damageContainer.removeChild(damageNum);
+                    }
+                }, 1500);
+            }
+    }
+    </script>
+    
+    <!-- 图鉴系统 JavaScript -->
+    <script>
+        class CodexSystem {
+            constructor() {
+                this.currentFilter = 'all';
+                this.searchTerm = '';
+                this.codexData = [];
+                this.init();
+            }
+
+            init() {
+                console.log('CodexSystem: 开始初始化...');
+                this.bindEvents();
+                console.log('CodexSystem: 初始化完成');
+            }
+
+            bindEvents() {
+                // 图鉴按钮
+                const codexBtn = document.getElementById('codex-btn');
+                if (codexBtn) {
+                    codexBtn.addEventListener('click', () => this.openCodex());
+                }
+
+                // 关闭图鉴
+                const codexClose = document.getElementById('codex-close');
+                if (codexClose) {
+                    codexClose.addEventListener('click', () => this.closeCodex());
+                }
+
+                // 搜索框
+                const searchInput = document.getElementById('codex-search');
+                if (searchInput) {
+                    searchInput.addEventListener('input', (e) => {
+                        this.searchTerm = e.target.value.toLowerCase();
+                        this.renderCodex();
+                    });
+                }
+
+                // 筛选按钮
+                const filterBtns = document.querySelectorAll('.filter-btn');
+                filterBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const camp = btn.dataset.camp;
+                        this.filterByCamp(camp);
+
+                        // 更新按钮状态
+                        filterBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                    });
+                });
+                
+                // 点击遮罩关闭详情
+                const codexDetail = document.getElementById('codex-detail');
+                if (codexDetail) {
+                    codexDetail.addEventListener('click', (e) => {
+                        if (e.target === codexDetail) {
+                            this.closeDetail();
+                        }
+                    });
+                }
+                
+                // 详情关闭按钮
+                const detailClose = document.getElementById('detail-close');
+                if (detailClose) {
+                    detailClose.addEventListener('click', () => this.closeDetail());
+                }
+                
+                // 点击图鉴遮罩关闭
+                const codexOverlay = document.getElementById('codex-overlay');
+                if (codexOverlay) {
+                    codexOverlay.addEventListener('click', (e) => {
+                        if (e.target === codexOverlay) {
+                            this.closeCodex();
+                        }
+                    });
+                }
+            }
+            
+            openCodex() {
+                console.log('CodexSystem: 打开图鉴');
+                const codexOverlay = document.getElementById('codex-overlay');
+                if (codexOverlay) {
+                    codexOverlay.classList.remove('hidden');
+                    // 清空搜索框
+                    const searchInput = document.getElementById('codex-search');
+                    if (searchInput) {
+                        searchInput.value = '';
+                        this.searchTerm = '';
+                    }
+                    this.renderCodex();
+                }
+            }
+            
+            closeCodex() {
+                console.log('CodexSystem: 关闭图鉴');
+                const codexOverlay = document.getElementById('codex-overlay');
+                if (codexOverlay) {
+                    codexOverlay.classList.add('hidden');
+                }
+                this.closeDetail();
+            }
+            
+            filterByCamp(camp) {
+                console.log('CodexSystem: 筛选阵营:', camp);
+                this.currentFilter = camp;
+                this.renderCodex();
+            }
+            
+            renderCodex() {
+                const codexGrid = document.getElementById('codex-grid');
+                if (!codexGrid) return;
+
+                // 获取所有角色数据
+                let units = [];
+                if (typeof CHESS_DATA !== 'undefined' && CHESS_DATA.pool) {
+                    units = CHESS_DATA.pool;
+                }
+
+                // 去重，只保留每个角色一次
+                const uniqueUnits = [];
+                const seenNames = new Set();
+                units.forEach(unit => {
+                    if (!seenNames.has(unit.name)) {
+                        seenNames.add(unit.name);
+                        uniqueUnits.push(unit);
+                    }
+                });
+
+                // 筛选
+                let filteredUnits = uniqueUnits;
+                
+                // 按阵营筛选
+                if (this.currentFilter !== 'all') {
+                    filteredUnits = filteredUnits.filter(unit => 
+                        unit.camp === this.currentFilter
+                    );
+                }
+                
+                // 按搜索词筛选
+                if (this.searchTerm) {
+                    filteredUnits = filteredUnits.filter(unit => 
+                        unit.name.toLowerCase().includes(this.searchTerm)
+                    );
+                }
+                
+                // 渲染
+                codexGrid.innerHTML = '';
+                filteredUnits.forEach(unit => {
+                    const card = this.createCodexCard(unit);
+                    codexGrid.appendChild(card);
+                });
+                
+                if (filteredUnits.length === 0) {
+                    codexGrid.innerHTML = '<div style="text-align:center; color:#a0aec0; padding:50px; grid-column:1/-1;">暂无该阵营角色</div>';
+                }
+            }
+            
+            createCodexCard(unit) {
+                const card = document.createElement('div');
+                card.className = 'codex-card';
+                
+                const stars = '⭐'.repeat(unit.star || 1);
+                const mainCamp = this.getMainCamp(unit.camp);
+                const factions = unit.factions || [];
+                
+                let factionsHtml = '';
+                if (factions.length > 0) {
+                    factionsHtml = `
+                        <div class="card-factions">
+                            ${factions.slice(0, 2).map(f => `<span class="faction-tag">${f}</span>`).join('')}
+                            ${factions.length > 2 ? `<span class="faction-tag">+${factions.length - 2}</span>` : ''}
+                        </div>
+                    `;
+                }
+                
+                card.innerHTML = `
+                    <img src="pic/1.jpeg" alt="${unit.name}" class="card-avatar" />
+                    <div class="card-name">${unit.name}</div>
+                    <div class="card-stars">${stars}</div>
+                    <div class="card-camp">${mainCamp || unit.camp || '未知'}</div>
+                    ${factionsHtml}
+                `;
+                
+                card.addEventListener('click', () => this.showDetail(unit));
+                
+                return card;
+            }
+            
+            getMainCamp(camp) {
+                if (camp === '十班') return '10班';
+                if (camp === '一班' || camp === '二班' || camp === '三班') return '9班';
+                if (camp === '四班' || camp === '五班' || camp === '六班') return '14班';
+                return camp;
+            }
+            
+            showDetail(unit) {
+                console.log('CodexSystem: 显示角色详情:', unit.name);
+                
+                const detailDiv = document.getElementById('codex-detail');
+                if (!detailDiv) return;
+                
+                // 填充数据
+                const detailAvatar = document.getElementById('detail-avatar');
+                const detailName = document.getElementById('detail-name');
+                const detailStars = document.getElementById('detail-stars');
+                const detailCamp = document.getElementById('detail-camp');
+                const detailHp = document.getElementById('detail-hp');
+                const detailAtk = document.getElementById('detail-atk');
+                const detailSkillName = document.getElementById('detail-skill-name');
+                const detailSkillDesc = document.getElementById('detail-skill-desc');
+                const detailFactions = document.getElementById('detail-factions');
+                
+                if (detailAvatar) detailAvatar.src = 'pic/1.jpeg';
+                if (detailName) detailName.textContent = unit.name;
+                if (detailStars) detailStars.textContent = '⭐'.repeat(unit.star || 1);
+                if (detailCamp) detailCamp.textContent = this.getMainCamp(unit.camp) || unit.camp || '未知';
+                if (detailHp) detailHp.textContent = unit.hp || '?';
+                if (detailAtk) detailAtk.textContent = unit.atk || '?';
+                
+                // 显示阵营信息
+                if (detailFactions) {
+                    const factions = unit.factions || [];
+                    const mainCamp = this.getMainCamp(unit.camp);
+                    
+                    let html = '';
+                    if (mainCamp) {
+                        html += `<div class="faction-item main-faction"><span class="faction-badge">主</span>${mainCamp}</div>`;
+                    }
+                    factions.forEach(faction => {
+                        html += `<div class="faction-item">${faction}</div>`;
+                    });
+                    html += `<div class="faction-requirement">需要3人触发</div>`;
+                    
+                    detailFactions.innerHTML = html;
+                }
+                
+                // 获取技能信息
+                let skillName = '未知技能';
+                let skillDesc = '暂无技能描述';
+                
+                if (typeof SKILL_DEFINITIONS !== 'undefined' && unit.skillKey) {
+                    const skill = SKILL_DEFINITIONS[unit.skillKey];
+                    if (skill) {
+                        skillName = skill.name || skillName;
+                        skillDesc = skill.description || skillDesc;
+                    }
+                }
+                
+                if (detailSkillName) detailSkillName.textContent = skillName;
+                if (detailSkillDesc) detailSkillDesc.textContent = skillDesc;
+                
+                detailDiv.classList.remove('hidden');
+            }
+            
+            closeDetail() {
+                const detailDiv = document.getElementById('codex-detail');
+                if (detailDiv) {
+                    detailDiv.classList.add('hidden');
+                }
+            }
+        }
+        
+        // 初始化图鉴系统
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                window.codexSystem = new CodexSystem();
+            }, 100);
+        });
+    </script>
+</body>
+</html>

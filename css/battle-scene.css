@@ -1,0 +1,1024 @@
+
+/**
+ * 战斗场景样式
+ * 联合演习 - 回合制自走棋
+ *
+ * 包含全新战斗场景页面的所有样式
+ */
+
+/* ===================================
+   全新战斗场景页面样式
+   =================================== */
+
+#battle-scene-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../pic/1.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    padding: 8px;
+}
+
+#battle-scene-overlay.hidden {
+    display: none;
+}
+
+#battle-scene-container {
+    width: 100%;
+    height: 100%;
+    max-width: 1400px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px 12px;
+    background: linear-gradient(180deg, rgba(30, 40, 60, 0.92) 0%, rgba(20, 30, 50, 0.95) 100%);
+    border-radius: 12px;
+    border: 2px solid rgba(72, 187, 120, 0.3);
+    box-shadow: 
+        0 0 50px rgba(72, 187, 120, 0.15),
+        inset 0 0 100px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+#battle-scene-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(252, 129, 129, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(72, 187, 120, 0.05) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+#battle-scene-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(45, 55, 72, 0.9) 0%, rgba(26, 32, 44, 0.95) 100%);
+    border-radius: 8px;
+    border: 1px solid rgba(72, 187, 120, 0.3);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+}
+
+#battle-scene-title {
+    font-size: 18px;
+    color: #f6e05e;
+    margin: 0;
+    text-shadow: 0 0 20px rgba(246, 224, 94, 0.5);
+    letter-spacing: 2px;
+}
+
+#battle-scene-status {
+    font-size: 13px;
+    color: #a0aec0;
+    padding: 4px 12px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.scene-btn {
+    padding: 6px 16px;
+    background: linear-gradient(135deg, #fc8181 0%, #f56565 100%);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(252, 129, 129, 0.3);
+}
+
+.scene-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(252, 129, 129, 0.4);
+}
+
+/* ===================================
+   战斗区域（敌方/我方）
+   =================================== */
+
+.battle-scene-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-image: url('../pic/1.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    padding: 6px 10px;
+    position: relative;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.enemy-scene::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(74, 34, 34, 0.82) 0%, rgba(45, 20, 20, 0.88) 100%);
+    z-index: 0;
+}
+
+.player-scene::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(0deg, rgba(34, 74, 50, 0.82) 0%, rgba(20, 45, 30, 0.88) 100%);
+    z-index: 0;
+}
+
+.scene-battlefield {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* ===================================
+   阵地标签
+   =================================== */
+
+.scene-side-label {
+    font-size: 13px;
+    font-weight: bold;
+    padding: 3px 14px;
+    border-radius: 20px;
+    color: #fff;
+    text-align: center;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+}
+
+.enemy-label {
+    background: linear-gradient(135deg, #fc8181 0%, #f56565 100%);
+    margin-bottom: 2px;
+}
+
+.player-label {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    margin-top: 2px;
+}
+
+/* ===================================
+   卡槽行布局
+   =================================== */
+
+.scene-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.scene-row.first-row {
+    max-width: 100%;
+}
+
+.scene-row.second-row {
+    max-width: 100%;
+}
+
+/* ===================================
+   卡槽样式
+   =================================== */
+
+.scene-card-slot {
+    width: 90px;
+    height: 110px;
+    background: linear-gradient(145deg, rgba(45, 55, 72, 0.8) 0%, rgba(26, 32, 44, 0.9) 100%);
+    border-radius: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+}
+
+.scene-card-slot.empty {
+    border-style: dashed;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.scene-card-slot.empty::before {
+    content: '空';
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.scene-card-slot:not(.empty) {
+    border-style: solid;
+    animation: cardAppear 0.5s ease-out;
+}
+
+@keyframes cardAppear {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.scene-card-slot.enemy-card {
+    border-color: rgba(252, 129, 129, 0.6);
+    box-shadow: 
+        0 4px 12px rgba(252, 129, 129, 0.3),
+        0 0 20px rgba(252, 129, 129, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.scene-card-slot.player-card {
+    border-color: rgba(72, 187, 120, 0.6);
+    box-shadow: 
+        0 4px 12px rgba(72, 187, 120, 0.3),
+        0 0 20px rgba(72, 187, 120, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.scene-card-slot:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 
+        0 8px 20px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(246, 224, 94, 0.3);
+}
+
+.scene-card-slot .card-image {
+    width: 68px;
+    height: 68px;
+    border-radius: 6px;
+    object-fit: cover;
+    margin-bottom: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.scene-card-slot .card-name {
+    font-size: 11px;
+    font-weight: bold;
+    color: #e2e8f0;
+    text-align: center;
+    margin-bottom: 2px;
+    line-height: 1.2;
+}
+
+.scene-card-slot .card-stats {
+    display: flex;
+    gap: 8px;
+    font-size: 10px;
+}
+
+.scene-card-slot .card-hp {
+    color: #fc8181;
+    font-weight: bold;
+}
+
+.scene-card-slot .card-atk {
+    color: #68d391;
+    font-weight: bold;
+}
+
+.scene-card-slot .hp-bar-container {
+    width: 100%;
+    margin-bottom: 3px;
+}
+
+.scene-card-slot .hp-bar-bg {
+    width: 100%;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.scene-card-slot .hp-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #68d391, #48bb78);
+    border-radius: 3px;
+    transition: width 0.3s ease, background 0.3s ease;
+}
+
+.scene-card-slot .hp-bar-text {
+    font-size: 8px;
+    color: #a0aec0;
+    text-align: center;
+    margin-top: 1px;
+}
+
+.scene-card-slot .card-stars {
+    position: absolute;
+    top: 3px;
+    right: 4px;
+    color: #f6e05e;
+    font-size: 10px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+/* ===================================
+   VS 区域
+   =================================== */
+
+#battle-scene-vs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 4px 0;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+}
+
+.vs-divider {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, rgba(246, 224, 94, 0.5) 50%, transparent 100%);
+}
+
+.vs-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: #f6e05e;
+    text-shadow: 
+        0 0 20px rgba(246, 224, 94, 0.8),
+        0 0 40px rgba(246, 224, 94, 0.4);
+    animation: vsGlow 2s ease-in-out infinite;
+    letter-spacing: 3px;
+}
+
+@keyframes vsGlow {
+    0%, 100% {
+        transform: scale(1);
+        text-shadow: 
+            0 0 20px rgba(246, 224, 94, 0.8),
+            0 0 40px rgba(246, 224, 94, 0.4);
+    }
+    50% {
+        transform: scale(1.1);
+        text-shadow: 
+            0 0 30px rgba(246, 224, 94, 1),
+            0 0 60px rgba(246, 224, 94, 0.6);
+    }
+}
+
+/* ===================================
+   响应式布局
+   =================================== */
+
+@media (max-width: 1200px) {
+    .scene-card-slot {
+        width: 80px;
+        height: 100px;
+    }
+
+    .scene-card-slot .card-image {
+        width: 60px;
+        height: 60px;
+    }
+
+    .scene-row {
+        gap: 6px;
+    }
+}
+
+@media (max-width: 900px) {
+    .scene-card-slot {
+        width: 70px;
+        height: 90px;
+    }
+
+    .scene-card-slot .card-image {
+        width: 52px;
+        height: 52px;
+    }
+
+    .scene-card-slot .card-name {
+        font-size: 10px;
+    }
+
+    .scene-card-slot .card-stats {
+        font-size: 9px;
+        gap: 6px;
+    }
+
+    .scene-row {
+        gap: 5px;
+    }
+
+    .scene-side-label {
+        font-size: 12px;
+        padding: 2px 12px;
+    }
+
+    #battle-scene-title {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 700px) {
+    #battle-scene-container {
+        padding: 6px 8px;
+        gap: 4px;
+    }
+
+    .scene-card-slot {
+        width: 60px;
+        height: 80px;
+        border-radius: 6px;
+    }
+
+    .scene-card-slot .card-image {
+        width: 44px;
+        height: 44px;
+    }
+
+    .scene-card-slot .card-name {
+        font-size: 9px;
+    }
+
+    .scene-card-slot .card-stats {
+        font-size: 8px;
+        gap: 4px;
+    }
+
+    .scene-card-slot .card-stars {
+        font-size: 9px;
+        top: 2px;
+        right: 2px;
+    }
+
+    .scene-row {
+        gap: 4px;
+    }
+
+    .vs-text {
+        font-size: 20px;
+    }
+
+    #battle-scene-header {
+        flex-wrap: wrap;
+        gap: 6px;
+        justify-content: center;
+        padding: 4px 10px;
+    }
+
+    .scene-side-label {
+        font-size: 11px;
+        padding: 2px 10px;
+    }
+}
+
+@media (max-width: 500px) {
+    .scene-card-slot {
+        width: 48px;
+        height: 68px;
+        border-radius: 5px;
+    }
+
+    .scene-card-slot .card-image {
+        width: 36px;
+        height: 36px;
+    }
+
+    .scene-card-slot .card-name {
+        font-size: 8px;
+    }
+
+    .scene-card-slot .card-stats {
+        display: none;
+    }
+
+    .scene-card-slot .card-stars {
+        font-size: 7px;
+        top: 1px;
+        right: 2px;
+    }
+
+    .scene-row {
+        gap: 3px;
+    }
+
+    .scene-side-label {
+        font-size: 10px;
+        padding: 2px 8px;
+    }
+
+    #battle-scene-title {
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+
+    .vs-text {
+        font-size: 16px;
+    }
+
+    .scene-btn {
+        padding: 4px 10px;
+        font-size: 11px;
+    }
+}
+
+/* ===================================
+   战斗速度控制按钮样式
+   =================================== */
+
+#battle-speed-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: linear-gradient(135deg, rgba(45, 55, 72, 0.8) 0%, rgba(26, 32, 44, 0.9) 100%);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.battle-speed-btn {
+    padding: 5px 12px;
+    background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    color: #a0aec0;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.battle-speed-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    background: linear-gradient(135deg, #68d391 0%, #48bb78 100%);
+    border-color: #48bb78;
+    color: white;
+    box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4);
+}
+
+.battle-speed-btn.active {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    border-color: #68d391;
+    color: white;
+    box-shadow: 0 0 15px rgba(72, 187, 120, 0.5);
+    transform: scale(1.1);
+}
+
+.battle-speed-btn:active {
+    transform: scale(0.95);
+}
+
+/* ===================================
+   伤害数字显示系统
+   =================================== */
+
+/* 伤害容器 */
+.damage-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 100;
+    overflow: visible;
+}
+
+/* 伤害数字样式 */
+.damage-number {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 22px;
+    font-weight: bold;
+    color: #fc8181;
+    text-shadow: 
+        0 0 10px rgba(252, 129, 129, 0.8),
+        0 0 20px rgba(252, 129, 129, 0.6),
+        0 2px 4px rgba(0, 0, 0, 0.8);
+    animation: damageFloat 1.5s ease-out forwards;
+    z-index: 1000;
+    white-space: nowrap;
+}
+
+/* 伤害浮动动画 */
+@keyframes damageFloat {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1);
+    }
+    30% {
+        opacity: 1;
+        transform: translate(-50%, -15px) scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -45px) scale(0.8);
+    }
+}
+
+/* 敌方受到伤害时的轻微震动效果 */
+.scene-card-slot.enemy-card.damage-shake {
+    animation: damageShake 0.3s ease-out;
+}
+
+.scene-card-slot.player-card.damage-shake {
+    animation: damageShake 0.3s ease-out;
+}
+
+@keyframes damageShake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    20% {
+        transform: translateX(-4px);
+    }
+    40% {
+        transform: translateX(4px);
+    }
+    60% {
+        transform: translateX(-2px);
+    }
+    80% {
+        transform: translateX(2px);
+    }
+}
+
+/* 响应式调整伤害数字大小 */
+@media (max-width: 1200px) {
+    .damage-number {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 900px) {
+    .damage-number {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 700px) {
+    .damage-number {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 500px) {
+    .damage-number {
+        font-size: 14px;
+    }
+}
+
+/* ===================================
+   物理撞击特效动画
+   =================================== */
+
+@keyframes burstParticle {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) translate(0, 0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) scale(0);
+    }
+}
+
+@keyframes flashPulse {
+    0% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.5);
+    }
+}
+
+@keyframes impactShake {
+    0%, 100% {
+        transform: translateX(0) rotate(0deg);
+    }
+    15% {
+        transform: translateX(-6px) rotate(-1deg);
+    }
+    30% {
+        transform: translateX(5px) rotate(1deg);
+    }
+    45% {
+        transform: translateX(-3px) rotate(-0.5deg);
+    }
+    60% {
+        transform: translateX(2px) rotate(0.5deg);
+    }
+    75% {
+        transform: translateX(-1px) rotate(0deg);
+    }
+}
+
+@keyframes cardImpact {
+    0% {
+        transform: scale(1);
+    }
+    20% {
+        transform: scale(1.1) translateX(10px);
+    }
+    40% {
+        transform: scale(0.95) translateX(-5px);
+    }
+    60% {
+        transform: scale(1.05) translateX(3px);
+    }
+    80% {
+        transform: scale(1) translateX(-1px);
+    }
+    100% {
+        transform: scale(1) translateX(0);
+    }
+}
+
+@keyframes impactGlow {
+    0% {
+        box-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+        opacity: 1;
+    }
+    50% {
+        box-shadow: 0 0 20px currentColor, 0 0 40px currentColor, 0 0 60px currentColor;
+        opacity: 0.8;
+    }
+    100% {
+        box-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+        opacity: 0;
+    }
+}
+
+@keyframes energySurge {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(3);
+        opacity: 0;
+    }
+}
+
+@keyframes targetPulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(252, 129, 129, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(252, 129, 129, 0);
+    }
+}
+
+.scene-card-slot.targeted {
+    animation: targetPulse 0.8s infinite;
+}
+
+.scene-card-slot.impacted {
+    animation: impactShake 0.4s ease-out;
+}
+
+.battlefield-card.impact-animation {
+    animation: cardImpact 0.4s ease-out;
+}
+
+/* ===================================
+   战斗动画关键帧（确保诊断工具能检测到）
+   =================================== */
+
+@keyframes damageFloat {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1);
+    }
+    30% {
+        opacity: 1;
+        transform: translate(-50%, -15px) scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -45px) scale(0.8);
+    }
+}
+
+@keyframes damageShake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    20% {
+        transform: translateX(-4px);
+    }
+    40% {
+        transform: translateX(4px);
+    }
+    60% {
+        transform: translateX(-2px);
+    }
+    80% {
+        transform: translateX(2px);
+    }
+}
+
+@keyframes cardImpact {
+    0% {
+        transform: scale(1);
+    }
+    20% {
+        transform: scale(1.1) translateX(10px);
+    }
+    40% {
+        transform: scale(0.95) translateX(-5px);
+    }
+    60% {
+        transform: scale(1.05) translateX(3px);
+    }
+    80% {
+        transform: scale(1) translateX(-1px);
+    }
+    100% {
+        transform: scale(1) translateX(0);
+    }
+}
+
+@keyframes burstParticle {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) translate(0, 0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) translate(var(--dx, 20px), var(--dy, 20px)) scale(0);
+    }
+}
+
+@keyframes flashPulse {
+    0% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.5);
+    }
+}
+
+/* ===================================
+   粒子特效容器
+   =================================== */
+
+.particle-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 1000;
+}
+
+.impact-particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+@keyframes particleFade {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
+/* ===================================
+   技能提示动画（卡牌中间浮现）
+   =================================== */
+
+.card-skill-hint {
+    position: fixed;
+    transform: translate(-50%, -50%);
+    padding: 6px 12px;
+    background: linear-gradient(135deg, rgba(45, 55, 72, 0.95), rgba(30, 40, 55, 0.95));
+    border: 2px solid #f6e05e;
+    border-radius: 20px;
+    color: #f6e05e;
+    font-size: 14px;
+    font-weight: bold;
+    z-index: 10002;
+    box-shadow: 0 0 15px rgba(246, 224, 94, 0.6), 0 4px 15px rgba(0,0,0,0.4);
+    text-align: center;
+    white-space: nowrap;
+    pointer-events: none;
+    animation: cardSkillAppear 1.5s ease-out forwards;
+}
+
+@keyframes cardSkillAppear {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    15% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    25% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    75% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -60%) scale(0.8);
+    }
+}
+
+@keyframes cardSkillFade {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -70%) scale(0.6);
+    }
+}
+
+/* 技能提示样式变体 */
+.card-skill-hint.skill-buff {
+    border-color: #48bb78;
+    color: #48bb78;
+    box-shadow: 0 0 15px rgba(72, 187, 120, 0.6), 0 4px 15px rgba(0,0,0,0.4);
+}
+
+.card-skill-hint.skill-damage {
+    border-color: #fc8181;
+    color: #fc8181;
+    box-shadow: 0 0 15px rgba(252, 129, 129, 0.6), 0 4px 15px rgba(0,0,0,0.4);
+}
+
+.card-skill-hint.skill-gold {
+    border-color: #f6e05e;
+    color: #f6e05e;
+    box-shadow: 0 0 15px rgba(246, 224, 94, 0.6), 0 4px 15px rgba(0,0,0,0.4);
+}
+
+.card-skill-hint.skill-heal {
+    border-color: #68d391;
+    color: #68d391;
+    box-shadow: 0 0 15px rgba(104, 211, 145, 0.6), 0 4px 15px rgba(0,0,0,0.4);
+}
