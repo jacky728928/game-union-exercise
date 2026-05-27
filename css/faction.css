@@ -37,6 +37,58 @@
     max-height: 75vh;
     overflow-y: auto;
     backdrop-filter: blur(12px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faction-container.collapsed {
+    padding: 0;
+    width: 56px;
+    border-radius: 12px;
+    overflow: visible;
+}
+
+.faction-toggle-btn {
+    position: absolute;
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 56px;
+    background: linear-gradient(180deg, rgba(30, 41, 59, 0.98) 0%, rgba(15, 23, 42, 1) 100%);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 101;
+}
+
+.faction-toggle-btn:hover {
+    background: linear-gradient(180deg, rgba(51, 65, 85, 0.98) 0%, rgba(30, 41, 59, 1) 100%);
+    border-color: rgba(59, 130, 246, 0.4);
+}
+
+.faction-toggle-btn .toggle-icon {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+    color: var(--faction-text-secondary);
+}
+
+.faction-container.collapsed .faction-toggle-btn .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.faction-content {
+    transition: all 0.3s ease;
+    opacity: 1;
+}
+
+.faction-container.collapsed .faction-content {
+    display: none;
+    opacity: 0;
 }
 
 .faction-container::-webkit-scrollbar {

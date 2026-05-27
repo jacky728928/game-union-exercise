@@ -23,7 +23,9 @@ body {
     min-height: 100vh;
     min-height: 100dvh;
     color: #e2e8f0;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }

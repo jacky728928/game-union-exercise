@@ -40,6 +40,11 @@ class MenuSystem {
             this.isInitialized = true;
 
             console.log('MenuSystem: 初始化完成');
+
+            // 在菜单界面检查并显示公告
+            setTimeout(() => {
+                this.checkAndShowAnnouncement();
+            }, 300);
         } catch (error) {
             console.error('MenuSystem: 初始化错误', error);
             alert('菜单系统初始化失败: ' + error.message);
@@ -281,12 +286,16 @@ class MenuSystem {
                     startMenu.style.display = '';
                     startMenu.classList.remove('hidden');
                     gameContainer.classList.add('hidden');
+                    return;
                 }
             }
 
+            // 显示教程选择面板
             setTimeout(() => {
-                this.checkAndShowAnnouncement();
-            }, 500);
+                if (window.tutorialSystem) {
+                    window.tutorialSystem.showSelectionPanel();
+                }
+            }, 300);
         } catch (error) {
             console.error('MenuSystem: 启动游戏时出错', error);
             alert('启动游戏时出错: ' + error.message);
@@ -295,6 +304,13 @@ class MenuSystem {
 
     showTutorial() {
         console.log('MenuSystem: 显示教程...');
+        
+        // 如果在主菜单，提示用户先开始游戏
+        const startMenu = document.getElementById('start-menu');
+        if (startMenu && !startMenu.classList.contains('hidden')) {
+            alert('请先点击"开始游戏"按钮进入游戏，再体验新手教程！');
+            return;
+        }
 
         if (window.tutorialSystem) {
             window.tutorialSystem.start();

@@ -962,6 +962,11 @@ class Game {
         this.factionSystem.refresh();
 
         this.checkAndAutoMerge();
+
+        // 通知教程系统任务完成
+        if (window.tutorialSystem && window.tutorialSystem.isActive) {
+            window.tutorialSystem.completeTask('buy_chess');
+        }
     }
 
     checkAndAutoMerge() {
@@ -1105,6 +1110,11 @@ class Game {
 
     startBattle() {
         this.battleLogic.startBattle();
+
+        // 通知教程系统任务完成
+        if (window.tutorialSystem && window.tutorialSystem.isActive) {
+            window.tutorialSystem.completeTask('start_battle');
+        }
     }
 
     generateEnemy() {

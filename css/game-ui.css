@@ -8,7 +8,7 @@
 /* 游戏容器 */
 #game-container {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     padding: 8px;
@@ -78,7 +78,6 @@
     gap: 10px;
     flex: 1;
     min-height: 0;
-    overflow: hidden;
 }
 
 /* 左面板 */

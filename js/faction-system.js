@@ -25,11 +25,22 @@ class FactionSystem {
         container.id = 'faction-container';
         container.className = 'faction-container';
 
+        // 添加汉堡菜单切换按钮
+        const toggleBtn = document.createElement('button');
+        toggleBtn.className = 'faction-toggle-btn';
+        toggleBtn.innerHTML = '<span class="toggle-icon">◀</span>';
+        toggleBtn.addEventListener('click', () => this.toggleCollapse());
+        container.appendChild(toggleBtn);
+
+        // 创建内容容器
+        const content = document.createElement('div');
+        content.className = 'faction-content';
+
         const mainCampSection = this.createFactionSection('主阵营', FACTION_DATA.mainCamps);
         const specialAffixSection = this.createFactionSection('特殊羁绊', FACTION_DATA.specialAffixes);
 
-        container.appendChild(mainCampSection);
-        container.appendChild(specialAffixSection);
+        content.appendChild(mainCampSection);
+        content.appendChild(specialAffixSection);
 
         // 添加各个主阵营的子阵营
         Object.keys(FACTION_DATA.subCamps).forEach(campId => {
@@ -38,12 +49,40 @@ class FactionSystem {
                 const campName = campId === 'class10' ? '10班子阵营' : 
                                campId === 'class9' ? '9班子阵营' : '14班子阵营';
                 const subCampSection = this.createFactionSection(campName, subCamps);
-                container.appendChild(subCampSection);
+                content.appendChild(subCampSection);
             }
         });
 
+        container.appendChild(content);
         document.getElementById('game-container').appendChild(container);
         this.factionContainer = container;
+
+        // 从本地存储恢复状态
+        this.loadCollapseState();
+    }
+
+    toggleCollapse() {
+        this.factionContainer.classList.toggle('collapsed');
+        this.saveCollapseState();
+    }
+
+    saveCollapseState() {
+        try {
+            localStorage.setItem('factionCollapsed', this.factionContainer.classList.contains('collapsed'));
+        } catch (e) {
+            console.warn('[FactionSystem] 无法保存收起状态:', e);
+        }
+    }
+
+    loadCollapseState() {
+        try {
+            const collapsed = localStorage.getItem('factionCollapsed') === 'true';
+            if (collapsed) {
+                this.factionContainer.classList.add('collapsed');
+            }
+        } catch (e) {
+            console.warn('[FactionSystem] 无法加载收起状态:', e);
+        }
     }
 
     createFactionSection(title, factions) {

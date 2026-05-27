@@ -55,7 +55,17 @@
 @media screen and (max-width: 1024px) {
     body {
         overflow-x: hidden;
+        overflow-y: auto;
         -webkit-overflow-scrolling: touch;
+    }
+    
+    #game-container {
+        height: auto;
+        min-height: 100vh;
+    }
+    
+    #main-area {
+        overflow: visible;
     }
 }
 
@@ -97,6 +107,7 @@
 @media screen and (max-width: 768px) {
     body {
         font-size: 14px;
+        overflow-y: auto;
     }
     
     /* 开始菜单 */
@@ -123,6 +134,8 @@
     #game-container {
         padding: 6px;
         gap: 6px;
+        height: auto;
+        min-height: 100vh;
     }
     
     #top-bar {
@@ -137,7 +150,8 @@
     
     #main-area {
         grid-template-columns: 1fr;
-        grid-template-rows: auto 1fr;
+        grid-template-rows: auto;
+        overflow: visible;
     }
     
     /* 战场和商店布局调整 */
@@ -176,12 +190,18 @@
         width: 95%;
         max-width: 500px;
     }
+    
+    /* 左面板 */
+    #left-panel {
+        overflow: visible;
+    }
 }
 
 /* 中等手机 */
 @media screen and (max-width: 600px) {
     body {
         font-size: 13px;
+        overflow-y: auto;
     }
     
     /* 开始菜单 */
@@ -278,6 +298,7 @@
 @media screen and (max-width: 480px) {
     body {
         font-size: 12px;
+        overflow-y: auto;
     }
     
     /* 开始菜单 */
